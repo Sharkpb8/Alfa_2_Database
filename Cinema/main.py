@@ -1,5 +1,3 @@
-from src.Genre import GenreCRUD
-
 def showoptions(list):
     """
     Displays the items in a list with numbered options.
@@ -16,26 +14,14 @@ def showoptions(list):
 def Run():
     running = True
     while running:
-        options = ["Film","Žánr","Sál","Promítání","Zákazník","Rezervace","Jiný","Ukončit"]
+        options = ["Načís ze souboru","Ukončit"]
         print("Zadejte název tabulky, se kterou chcete pracovat.")
         showoptions(options)
         choice = input("Vybírám si: ")
         match choice:
-            case "Film" | "1":
+            case "Načís ze souboru" | "1":
                 print("Není implementovaný")
-            case "Žánr" | "2":
-                GenreCRUD()
-            case "Sál" | "3":
-                print("Není implementovaný")
-            case "Promítání" | "4":
-                print("Není implementovaný")
-            case "Zákazník" | "5":
-                print("Není implementovaný")
-            case "Rezervace" | "6":
-                print("Není implementovaný")
-            case "Jiný" | "7":
-                print("Není implementovaný")
-            case "Ukončit" | "8":
+            case "Ukončit" | "2":
                 running = False
             case _:
                 print("Špatná volba")

@@ -1,0 +1,35 @@
+{
+    "Genre": [
+      { "Name": "Action" },
+      { "Name": "Comedy" },
+      { "Name": "Drama" },
+      { "Name": "Horror" }
+    ],
+    "Movie": [
+      { "Genre_id": 1, "Name": "Fast and Furious", "Lenght": 120, "Price": 150.00, "Premiere_date": "2025-01-01" },
+      { "Genre_id": 2, "Name": "The Hangover", "Lenght": 100, "Price": 130.00, "Premiere_date": "2025-01-02" },
+      { "Genre_id": 3, "Name": "The Shawshank Redemption", "Lenght": 142, "Price": 200.00, "Premiere_date": "2025-01-03" },
+      { "Genre_id": 4, "Name": "It", "Lenght": 135, "Price": 180.00, "Premiere_date": "2025-01-04" }
+    ],
+    "Hall": [
+      { "Name": "Main Hall", "Type": "Standartní" },
+      { "Name": "VIP Lounge", "Type": "VIP" }
+    ],
+    "Screening": [
+      { "Movie_id": 1, "Hall_id": 1, "Date": "2025-01-10T18:00:00" },
+      { "Movie_id": 2, "Hall_id": 1, "Date": "2025-01-11T20:00:00" },
+      { "Movie_id": 3, "Hall_id": 2, "Date": "2025-01-12T19:00:00" },
+      { "Movie_id": 4, "Hall_id": 2, "Date": "2025-01-13T21:00:00" }
+    ],
+    "Customer": [
+      { "Name": "John", "Last_name": "Doe", "Loyalty_program": 0, "Loyalty_points": 0.00, "Registry_date": "2025-01-01" },
+      { "Name": "Jane", "Last_name": "Smith", "Loyalty_program": 1, "Loyalty_points": 150.00, "Registry_date": "2025-01-02" },
+      { "Name": "Alice", "Last_name": "Johnson", "Loyalty_program": 0, "Loyalty_points": 0.00, "Registry_date": "2025-01-03" }
+    ],
+    "Rezervation": [
+      { "Customer_id": 1, "Screening_id": 1, "Date": "2025-01-05", "Ticket_ammount": 2, "Total_price": 300.00 },
+      { "Customer_id": 2, "Screening_id": 2, "Date": "2025-01-06", "Ticket_ammount": 3, "Total_price": 390.00 },
+      { "Customer_id": 3, "Screening_id": 3, "Date": "2025-01-07", "Ticket_ammount": 1, "Total_price": 200.00 }
+    ]
+  }
+  
