@@ -34,6 +34,7 @@ create table Customer(
 id int primary key auto_increment,
 Name varchar(30) NOT NULL,
 Last_name varchar(30) NOT NULL,
+Loyalty_program bit default(0),
 Loyalty_points decimal(10,2) default(0) NOT NULL,
 Registry_date date default (curdate()) NOT NULL
 );

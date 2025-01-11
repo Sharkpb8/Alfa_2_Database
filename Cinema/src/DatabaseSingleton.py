@@ -33,6 +33,6 @@ class DatabaseSingleton:
             return config["database"][key]
 
 
-conn = DatabaseSingleton.new_conn()
-DatabaseSingleton.close_conn()
-print("Konec")
+# conn = DatabaseSingleton.new_conn()
+# DatabaseSingleton.close_conn()
+# print("Konec")
