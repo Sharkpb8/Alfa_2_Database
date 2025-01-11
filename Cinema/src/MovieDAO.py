@@ -1,8 +1,8 @@
 from src.DatabaseSingleton import *
 
-def Save(Name):
-    sql = f"insert into Genre(Name) values(%s);"
-    val = [Name]
+def Save(Genreid,name,Lenght,Price,Premiere_date):
+    sql = f"insert into Movie(id, Genre_id, Name, Lenght, Price, Premiere_date) values(%s,%s,%s,%s,%s,%s);"
+    val = [Genreid,name,Lenght,Price,Premiere_date]
     conn = DatabaseSingleton()
     cursor = conn.cursor()
     try:
@@ -16,9 +16,9 @@ def Save(Name):
     finally:
         DatabaseSingleton.close_conn()
 
-def Update(id,Name):
-    sql = f"update Genre set Name = %s where id = %s;"
-    val = [Name,id]
+def Update(id,Genreid,name,Lenght,Price,Premiere_date):
+    sql = f"update Movie set Genre_id = %s, Name = %s, Lenght=%s, Price=%s,Premiere_date=%s  where id = %s;"
+    val = [Genreid,name,Lenght,Price,Premiere_date,id]
     conn = DatabaseSingleton()
     cursor = conn.cursor()
     try:
@@ -33,7 +33,7 @@ def Update(id,Name):
         DatabaseSingleton.close_conn()
 
 def Delete(id):
-    sql = f"delete Genre where id = %s;"
+    sql = f"delete Movie where id = %s;"
     val = [id]
     conn = DatabaseSingleton()
     cursor = conn.cursor()
@@ -49,7 +49,7 @@ def Delete(id):
         DatabaseSingleton.close_conn()
 
 def Read():
-    sql = f"select * from Genre;"
+    sql = f"select * from MovieJoin;"
     val = []
     conn = DatabaseSingleton()
     cursor = conn.cursor()
@@ -60,6 +60,6 @@ def Read():
         print(e)
     else:
         for i in myresult:
-            print(f"ID: {i[0]}, Nazev {i[1]}")
+            print(f"ID: {i[0]}, Film: {i[1]}, Žánr: {i[2]}, Délka: {i[3]}, Cena: {i[4]}, Den premiery {i[5]}")
     finally:
         DatabaseSingleton.close_conn()

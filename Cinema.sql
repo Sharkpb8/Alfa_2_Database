@@ -51,4 +51,11 @@ Date date NOT NULL,
 Ticket_ammount int check(Ticket_ammount >0) default(0) NOT NULL,
 Total_price decimal(10,2) check(Total_price>=0) NOT NULL
 );
+
+delimiter //
+create view MovieJoin
+as
+select Movie.id,Movie.Name as Movie,Genre.Name as Genre,Lenght,Price,Premiere_date 
+from Movie inner join Genre on Movie.Genre_id = Genre.id
+//
 COMMIT

@@ -1,3 +1,5 @@
+from src.MovieDAO import Save,Update,Delete,Read
+
 def showoptions(list):
     """
     Displays the items in a list with numbered options.
@@ -10,29 +12,25 @@ def showoptions(list):
         print(f"{count}. {i}")
         count +=1
 
-def MovieCRUD():
+def GenreCRUD():
     running = True
     while running:
         options = ["Vložit","Upravit","Smazat","Číst","Načíst ze souboru","Ukončit"]
-        print("Zadejte název tabulky, se kterou chcete pracovat.")
+        print("Vyberte operaci kterou chcete provést na tabulce Žánr")
         showoptions(options)
         choice = input("Vybírám si: ")
         match choice:
-            case "Film" | "1":
+            case "Vložit" | "1":
+                
+            case "Upravit" | "2":
                 print("Není implementovaný")
-            case "Žánr" | "2":
+            case "Smazat" | "3":
                 print("Není implementovaný")
-            case "Sál" | "3":
+            case "Číst" | "4":
                 print("Není implementovaný")
-            case "Promítání" | "4":
+            case "Načíst ze souboru" | "5":
                 print("Není implementovaný")
-            case "Zákazník" | "5":
-                print("Není implementovaný")
-            case "Rezervace" | "6":
-                print("Není implementovaný")
-            case "Jiný" | "7":
-                print("Není implementovaný")
-            case "Ukončit" | "8":
+            case "Ukončit" | "6":
                 running = False
             case _:
                 print("Špatná volba")
