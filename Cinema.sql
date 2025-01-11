@@ -1,15 +1,17 @@
 SET autocommit = OFF;
 use Cinema;
 start transaction;
+
 create table Genre(
 id int primary key auto_increment,
-Name varchar(30) NOT NULL
+Name varchar(30) NOT NULL unique
 );
 
 create table Movie(
 id int primary key auto_increment,
 Genre_id int NOT NULL, 
 foreign key(Genre_id) references Genre(id),
+Name varchar(50) NOT NULL unique,
 Lenght int check(Lenght >0) NOT NULL,
 Price decimal(10,2) check(Price >0) NOT NULL,
 Premiere_date date
