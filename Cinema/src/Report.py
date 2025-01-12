@@ -13,10 +13,10 @@ def showoptions(list):
         print(f"{count}. {i}")
         count += 1
 
-def Pointsoptions():
+def ReportOptions():
     running = True
     while running:
-        options = ["Převést body","Výpis transakcí bodů","Výpis zákazníků na nejbližší promítání","Celkový počet lístků na film","Ukončit"]
+        options = ["Výpis zákazníků na nejbližší promítání","Celkový počet lístků na film","Ukončit"]
         print("Vyberte kterou akci chcete provést")
         showoptions(options)
         choice = input("Vybírám si: ")

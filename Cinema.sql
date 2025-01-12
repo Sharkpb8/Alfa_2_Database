@@ -58,7 +58,7 @@ Customer_id int,
 foreign key(Customer_id) references Customer(id) ON DELETE CASCADE,
 ammount decimal(10,2),
 description varchar(50)
-);
+); -- add date
 
 DELIMITER //
 CREATE PROCEDURE InsertRezervation(IN _Customer_id int,IN _Screening_id int,IN _Date date,IN _Ticket_ammount int)

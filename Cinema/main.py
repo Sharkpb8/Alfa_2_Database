@@ -5,7 +5,8 @@ from src.Hall import HallCRUD
 from src.Screening import ScreeningCRUD
 from src.Customer import CustomerCRUD
 from src.Rezervation import ReservationCRUD
-from src.Points import Pointsoptions
+from src.Points import PointsOptions
+from src.Report import ReportOptions
 
 def showoptions(list):
     """
@@ -38,7 +39,7 @@ def convert_input(value):
 def Run():
     running = True
     while running:
-        options = ["Film","Žánr","Sál","Promítání","Zákazník","Rezervace","Body","Ukončit"]
+        options = ["Film","Žánr","Sál","Promítání","Zákazník","Rezervace","Body","Report","Ukončit"]
         print("Zadejte název tabulky, se kterou chcete pracovat.")
         showoptions(options)
         choice = input("Vybírám si: ")
@@ -56,8 +57,10 @@ def Run():
             case "Rezervace" | "6":
                 ReservationCRUD()
             case "Body" | "7":
-                Pointsoptions()
-            case "Ukončit" | "8":
+                PointsOptions()
+            case "Report" | "8":
+                ReportOptions()
+            case "Ukončit" | "9":
                 running = False
             case _:
                 print("Špatná volba")
