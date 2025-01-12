@@ -1,5 +1,5 @@
 import json
-from DatabaseSingleton import *
+from src.DatabaseSingleton import *
 
 def SaveGenre(data):
     cursor = DatabaseSingleton().cursor()
@@ -97,14 +97,19 @@ def SaveReservation(data):
         DatabaseSingleton.close_conn()
 
 
-def load():
+def load(table):
     with open("./Cinema/data.json",encoding="utf-8") as f:
         data = json.load(f)
-        SaveGenre(data["Genre"])
-        SaveMovie(data["Movie"])
-        SaveHall(data["Hall"])
-        SaveScreening(data["Screening"])
-        SaveCustomer(data["Customer"])
-        SaveReservation(data["Rezervation"])
 
-load()
+        if table == "Genre":
+            SaveGenre(data["Genre"])
+        if table == "Movie":
+            SaveMovie(data["Movie"])
+        if table == "Hall":
+            SaveHall(data["Hall"])
+        if table == "Screening":
+            SaveScreening(data["Screening"])
+        if table == "Customer":
+            SaveCustomer(data["Customer"])
+        if table == "Rezervation":
+            SaveReservation(data["Rezervation"])
