@@ -52,4 +52,44 @@ Ticket_ammount int check(Ticket_ammount >0) default(0) NOT NULL,
 Total_price decimal(10,2) check(Total_price>=0) NOT NULL
 );
 
+DELIMITER //
+CREATE PROCEDURE InsertRezervation(IN _Customer_id int,IN _Screening_id int,IN _Date date,IN _Ticket_ammount int)
+BEGIN
+    DECLARE _Movie_id INT;
+	Declare _price decimal(10,2);
+    
+    SELECT id INTO _Movie_id
+    FROM Screening
+    WHERE id = _Screening_id;
+    
+    select Price into _price
+    from Movie
+    where id = _Movie_id;
+    
+    set _price = _price*_Ticket_ammount;
+    
+    insert into Rezervation(Customer_id,Screening_id,Date,Ticket_ammount,Total_price) values(_Customer_id,_Screening_id,_Date,_Ticket_ammount,_price);
+END //
+
+DELIMITER //
+CREATE PROCEDURE UpdateRezervation(IN _id int,IN _Customer_id int,IN _Screening_id int,IN _Date date,IN _Ticket_ammount int)
+BEGIN
+    DECLARE _Movie_id INT;
+	Declare _price decimal(10,2);
+    
+    SELECT id INTO _Movie_id
+    FROM Screening
+    WHERE id = _Screening_id;
+    
+    select Price into _price
+    from Movie
+    where id = _Movie_id;
+    
+    set _price = _price*_Ticket_ammount;
+    
+    update Rezervation
+    set Customer_id = _Customer_id,Screening_id = _Screening_id,Date = _Date,Ticket_ammount=_Ticket_ammount,Total_price=_price
+    where id = _id;
+END //
+
 COMMIT

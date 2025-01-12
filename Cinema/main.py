@@ -1,5 +1,10 @@
 from src.JsonLoad import load
 import ast
+from src.Movie import MovieCRUD
+from src.Hall import HallCRUD
+from src.Screening import ScreeningCRUD
+from src.Customer import CustomerCRUD
+from src.Rezervation import ReservationCRUD
 
 def showoptions(list):
     """
@@ -37,17 +42,21 @@ def Run():
         showoptions(options)
         choice = input("Vybírám si: ")
         match choice:
-            case "Načís ze souboru" | "1":
-                options = ["Film","Žánr","Sál","Promítání","Zákazník","Rezervace"]
-                showoptions(options)
-                table = convert_input(input("Vybírám si: "))
-                if(table in options):
-                    load(table)
-                elif(table>=1 and table<= len(options)):
-                    load(options[table-1])
-            case "Reporty" | "2":
-                
-            case "Ukončit" | "3":
+            case "Film" | "1":
+                MovieCRUD()
+            case "Žánr" | "2":
+                GenreCRUD()
+            case "Sál" | "3":
+                HallCRUD()
+            case "Promítání" | "4":
+                ScreeningCRUD()
+            case "Zákazník" | "5":
+                CustomerCRUD()
+            case "Rezervace" | "6":
+                ReservationCRUD()
+            case "Jiný" | "7":
+                print("Není implementovaný")
+            case "Ukončit" | "8":
                 running = False
             case _:
                 print("Špatná volba")
