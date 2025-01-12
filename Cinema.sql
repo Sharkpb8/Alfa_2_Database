@@ -92,4 +92,24 @@ BEGIN
     where id = _id;
 END //
 
+delimiter //
+create view NextScreeningCustomers
+as
+select c.Name,c.Last_name,r.Date as Purchase_date,r.Ticket_ammount,r.Total_price
+from Customer as c inner join Rezervation as r on r.Customer_id = c.id
+					inner join Screening as s on r.Screening_id = s.id
+where s.id =(
+select id 
+from Screening
+where Date>current_time()
+limit 1); //
+
+delimiter //
+create view TotalMovieTickets
+as
+select m.Name,sum(r.Ticket_ammount) as ammount
+from Movie as m inner join Screening as s on s.Movie_id = m.id
+				inner join Rezervation as r on r.Screening_id = s.id
+group by m.Name; //
+
 COMMIT

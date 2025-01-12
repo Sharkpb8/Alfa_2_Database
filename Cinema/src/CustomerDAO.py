@@ -84,3 +84,37 @@ def LoadCustomer(data):
         data = data["Customer"]
         for i in data:
             Save(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"])
+
+def TransferPoints(from_id,to_id,ammount):
+    sql = "UPDATE Customer SET Loyalty_points = Loyalty_points-%s WHERE id = %s;"
+    val = [ammount, from_id]
+    sql2 = "UPDATE Customer SET Loyalty_points = Loyalty_points+%s WHERE id = %s;"
+    val2 = [ammount, to_id]
+    conn = DatabaseSingleton()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("START TRANSACTION;")
+        cursor.execute(sql, val)
+        cursor.execute(sql2,val2)
+    except Exception as e:
+        print(e)
+        cursor.execute("ROLLBACK;")
+    else:
+        cursor.execute("COMMIT;")
+    finally:
+        DatabaseSingleton.close_conn()
+
+def NextScreeningCustomers():
+    sql = "SELECT * FROM NextScreeningCustomers;"
+    conn = DatabaseSingleton()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(sql)
+        myresult = cursor.fetchall()
+    except Exception as e:
+        print(e)
+    else:
+        for i in myresult:
+            print(f"Jméno: {i[0]}, Příjmení: {i[1]}, Datum nákupu: {i[2]}, Množstvý vstupenek: {i[3]}, Celková cena: {i[4]}")
+    finally:
+        DatabaseSingleton.close_conn()
