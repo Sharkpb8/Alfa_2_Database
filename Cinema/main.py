@@ -1,5 +1,9 @@
 from src.Genre import GenreCRUD
 from src.Movie import MovieCRUD
+from src.Hall import HallCRUD
+from src.Screening import ScreeningCRUD
+from src.Customer import CustomerCRUD
+from src.Rezervation import ReservationCRUD
 
 def showoptions(list):
     """
@@ -27,13 +31,13 @@ def Run():
             case "Žánr" | "2":
                 GenreCRUD()
             case "Sál" | "3":
-                print("Není implementovaný")
+                HallCRUD()
             case "Promítání" | "4":
-                print("Není implementovaný")
+                ScreeningCRUD()
             case "Zákazník" | "5":
-                print("Není implementovaný")
+                CustomerCRUD()
             case "Rezervace" | "6":
-                print("Není implementovaný")
+                ReservationCRUD()
             case "Jiný" | "7":
                 print("Není implementovaný")
             case "Ukončit" | "8":
