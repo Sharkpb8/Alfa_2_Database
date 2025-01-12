@@ -1,5 +1,5 @@
-from src.CustomerDAO import TransferPoints,NextScreeningCustomers
-from src.MovieDAO import TotalMovieTickets
+from src.CustomerDAO import TransferPoints
+from src.LoyaltyPointsDAO import Transaction_by_id
 
 def showoptions(list):
     """
@@ -13,24 +13,23 @@ def showoptions(list):
         print(f"{count}. {i}")
         count += 1
 
-def Other():
+def Pointsoptions():
     running = True
     while running:
-        options = ["Převést body","Výpis zákazníků na nejbližší promítání","Celkový počet lístků na film","Ukončit"]
+        options = ["Převést body","Výpis transakcí bodů","Výpis zákazníků na nejbližší promítání","Celkový počet lístků na film","Ukončit"]
         print("Vyberte kterou akci chcete provést")
         showoptions(options)
         choice = input("Vybírám si: ")
         match choice:
-            case "Vložit" | "1":
+            case "Převést body" | "1":
                 from_id = int(input("Id zakaznika odkud se odeštou body: "))
                 to_id = int(input("Id zakaznika komu se přičtou body: "))
                 ammount = float(input("Množstvý bodů který se převedou: "))
                 TransferPoints(from_id,to_id,ammount)
-            case "Výpis zákazníků na nejbližší promítání" | "2":
-                NextScreeningCustomers()
-            case "Celkový počet lístků na film" | "3":
-                TotalMovieTickets()
-            case "Ukončit" | "4":
+            case "Výpis transakcí bodů" | "2":
+                id = int(input("id zakazníka u koho chcete vypsat transakce bodů: "))
+                Transaction_by_id(id)
+            case "Ukončit" | "3":
                 running = False
             case _:
                 print("Špatná volba")
