@@ -1,7 +1,7 @@
 from src.DatabaseSingleton import *
 
 def Save(Name, Last_name, Loyalty_program, Loyalty_points):
-    sql = "INSERT INTO Customer(Name, Last_name, Loyalty_program, Loyalty_points) VALUES (%s, %s, %s, %s);"
+    sql = "call CreateCustomer (%s, %s, %s, %s);"
     val = [Name, Last_name, Loyalty_program, Loyalty_points]
     conn = DatabaseSingleton()
     cursor = conn.cursor()
@@ -86,16 +86,13 @@ def LoadCustomer(data):
             Save(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"])
 
 def TransferPoints(from_id,to_id,ammount):
-    sql = "UPDATE Customer SET Loyalty_points = Loyalty_points-%s WHERE id = %s;"
-    val = [ammount, from_id]
-    sql2 = "UPDATE Customer SET Loyalty_points = Loyalty_points+%s WHERE id = %s;"
-    val2 = [ammount, to_id]
+    sql = "call TransferPoints(%s,%s,%s)"
+    val = [from_id, to_id, ammount]
     conn = DatabaseSingleton()
     cursor = conn.cursor()
     try:
         cursor.execute("START TRANSACTION;")
         cursor.execute(sql, val)
-        cursor.execute(sql2,val2)
     except Exception as e:
         print(e)
         cursor.execute("ROLLBACK;")

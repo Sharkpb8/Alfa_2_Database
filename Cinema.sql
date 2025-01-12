@@ -52,6 +52,14 @@ Ticket_ammount int check(Ticket_ammount >0) default(0) NOT NULL,
 Total_price decimal(10,2) check(Total_price>=0) NOT NULL
 );
 
+create table Loyalty_points_transactions(
+id int primary key auto_increment,
+Customer_id int,
+foreign key(Customer_id) references Customer(id) ON DELETE CASCADE,
+ammount decimal(10,2),
+description varchar(50)
+);
+
 DELIMITER //
 CREATE PROCEDURE InsertRezervation(IN _Customer_id int,IN _Screening_id int,IN _Date date,IN _Ticket_ammount int)
 BEGIN
@@ -111,5 +119,33 @@ select m.Name,sum(r.Ticket_ammount) as ammount
 from Movie as m inner join Screening as s on s.Movie_id = m.id
 				inner join Rezervation as r on r.Screening_id = s.id
 group by m.Name; //
+
+-- ještě není uděláno
+SELECT m.Name AS Movie_Name,COUNT(r.id) AS Number_of_Reservations,SUM(r.Total_price) AS Total_Revenue,AVG(r.Ticket_ammount),AVG(r.Total_price) AS Average_Rezervation_Price
+FROM Movie m JOIN Screening s ON m.id = s.Movie_id
+			JOIN Rezervation r ON s.id = r.Screening_id
+GROUP BY m.Name;
+-- ještě není uděláno
+
+DELIMITER //
+CREATE PROCEDURE TransferPoints(IN _from_id int,IN _to_id int,IN _ammount int)
+BEGIN
+    UPDATE Customer 
+    SET Loyalty_points = Loyalty_points-_ammount WHERE id = _from_id;
+    
+	insert into Loyalty_points_transactions(Customer_id,ammount,description) values(_from_id,-_ammount,'Převod');
+    
+	UPDATE Customer 
+    SET Loyalty_points = Loyalty_points+_ammount WHERE id = _to_id;
+    
+    insert into Loyalty_points_transactions(Customer_id,ammount,description) values(_to_id,_ammount,'Převod');
+END //
+
+DELIMITER //
+CREATE PROCEDURE CreateCustomer(IN _Name varchar(30), IN _Last_name varchar(30), In _Loyalty_program varchar(30), In _Loyalty_points varchar(30))
+BEGIN
+    insert into Customer(Name, Last_name, Loyalty_program, Loyalty_points) values(_Name,_Last_name,_Loyalty_program,_Loyalty_points);
+	insert into Loyalty_points_transactions(Customer_id,ammount,description) values(LAST_INSERT_ID(),_Loyalty_points,'Založení účtu');
+END //
 
 COMMIT
