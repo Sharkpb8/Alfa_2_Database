@@ -33,7 +33,7 @@ def Update(id,Name):
         DatabaseSingleton.close_conn()
 
 def Delete(id):
-    sql = f"delete Genre where id = %s;"
+    sql = f"delete from Genre where id = %s;"
     val = [id]
     conn = DatabaseSingleton()
     cursor = conn.cursor()

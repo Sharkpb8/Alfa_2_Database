@@ -1,4 +1,5 @@
 from src.Genre import GenreCRUD
+from src.Movie import MovieCRUD
 
 def showoptions(list):
     """
@@ -22,7 +23,7 @@ def Run():
         choice = input("Vybírám si: ")
         match choice:
             case "Film" | "1":
-                print("Není implementovaný")
+                MovieCRUD()
             case "Žánr" | "2":
                 GenreCRUD()
             case "Sál" | "3":

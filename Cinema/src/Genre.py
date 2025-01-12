@@ -29,7 +29,7 @@ def GenreCRUD():
                 Update(id,newname)
             case "Smazat" | "3":
                 id = int(input("id žánru který chcete smazat: "))
-                Delete()
+                Delete(id)
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
