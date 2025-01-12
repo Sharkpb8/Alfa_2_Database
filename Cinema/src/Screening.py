@@ -1,4 +1,4 @@
-from src.ScreeningDAO import Save, Update, Delete, Read
+from src.ScreeningDAO import Save, Update, Delete, Read, LoadScreening
 
 def showoptions(list):
     """
@@ -37,7 +37,7 @@ def ScreeningCRUD():
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
-                print("Není implementovaný")
+                LoadScreening()
             case "Ukončit" | "6":
                 running = False
             case _:

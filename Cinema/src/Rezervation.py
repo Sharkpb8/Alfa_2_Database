@@ -1,4 +1,4 @@
-from src.RezervationDAO import Save, Update, Delete, Read
+from src.RezervationDAO import Save, Update, Delete, Read, LoadCustomer
 
 def showoptions(list):
     """
@@ -39,7 +39,7 @@ def ReservationCRUD():
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
-                print("Není implementovaný")
+                LoadCustomer()
             case "Ukončit" | "6":
                 running = False
             case _:

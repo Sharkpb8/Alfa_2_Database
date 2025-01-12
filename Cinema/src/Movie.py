@@ -1,4 +1,4 @@
-from src.MovieDAO import Save, Update, Delete, Read
+from src.MovieDAO import Save, Update, Delete, Read, LoadMovie
 
 def showoptions(list):
     """
@@ -41,7 +41,7 @@ def MovieCRUD():
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
-                print("Není implementovaný")
+                LoadMovie()
             case "Ukončit" | "6":
                 running = False
             case _:

@@ -64,3 +64,10 @@ def Read():
             print(f"ID: {i[0]}, Žánr ID: {i[1]}, Jméno: {i[2]}, Délka: {i[3]} minut, Cena: {i[4]} Kč, Premiéra: {i[5]}")
     finally:
         DatabaseSingleton.close_conn()
+
+def LoadMovie(data):
+    with open("./Cinema/data.json",encoding="utf-8") as f:
+        data = json.load(f)
+        data = data["Movie"]
+        for i in data:
+            Save(i["Genre_id"],i["Name"],i["Length"],i["Length"],i["Premiere_date"])

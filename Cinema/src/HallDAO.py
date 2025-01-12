@@ -62,3 +62,10 @@ def Read():
             print(f"ID: {i[0]}, Jméno: {i[1]}, Typ: {i[2]}")
     finally:
         DatabaseSingleton.close_conn()
+
+def LoadHall(data):
+    with open("./Cinema/data.json",encoding="utf-8") as f:
+        data = json.load(f)
+        data = data["Hall"]
+        for i in data:
+            Save(i["Name"],i["Type"])

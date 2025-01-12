@@ -62,3 +62,10 @@ def Read():
             print(f"ID: {i[0]}, Film ID: {i[1]}, Sál ID: {i[2]}, Datum: {i[3]}")
     finally:
         DatabaseSingleton.close_conn()
+
+def LoadScreening(data):
+    with open("./Cinema/data.json",encoding="utf-8") as f:
+        data = json.load(f)
+        data = data["Screening"]
+        for i in data:
+            Save(i["Movie_id"],i["Hall_id"],i["Date"])

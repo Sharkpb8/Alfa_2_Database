@@ -1,4 +1,4 @@
-from src.GenreDAO import Save,Update,Delete,Read
+from src.GenreDAO import Save,Update,Delete,Read,LoadGenre
 
 def showoptions(list):
     """
@@ -33,7 +33,7 @@ def GenreCRUD():
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
-                print("Není implementovaný")
+                LoadGenre()
             case "Ukončit" | "6":
                 running = False
             case _:

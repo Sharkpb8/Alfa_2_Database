@@ -63,3 +63,10 @@ def Read():
             print(f"ID: {i[0]}, Nazev {i[1]}")
     finally:
         DatabaseSingleton.close_conn()
+    
+def LoadGenre(data):
+    with open("./Cinema/data.json",encoding="utf-8") as f:
+        data = json.load(f)
+        data = data["Genre"]
+        for i in data:
+            Save(i["Name"])

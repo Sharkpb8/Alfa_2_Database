@@ -77,3 +77,10 @@ def Get_Customer_point(id):
         return myresult[0][0]
     finally:
         DatabaseSingleton.close_conn()
+
+def LoadCustomer(data):
+    with open("./Cinema/data.json",encoding="utf-8") as f:
+        data = json.load(f)
+        data = data["Customer"]
+        for i in data:
+            Save(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"])

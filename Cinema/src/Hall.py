@@ -1,4 +1,4 @@
-from src.HallDAO import Save, Update, Delete, Read
+from src.HallDAO import Save, Update, Delete, Read, LoadHall
 
 def showoptions(list):
     """
@@ -35,7 +35,7 @@ def HallCRUD():
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
-                print("Není implementovaný")
+                LoadHall()
             case "Ukončit" | "6":
                 running = False
             case _:

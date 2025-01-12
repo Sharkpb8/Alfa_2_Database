@@ -1,4 +1,4 @@
-from src.CustomerDAO import Save, Update, Delete, Read,Get_Customer_point
+from src.CustomerDAO import Save, Update, Delete, Read,Get_Customer_point,LoadCustomer
 
 def showoptions(list):
     """
@@ -45,7 +45,7 @@ def CustomerCRUD():
             case "Číst" | "4":
                 Read()
             case "Načíst ze souboru" | "5":
-                print("Není implementovaný")
+                LoadCustomer()
             case "Ukončit" | "6":
                 running = False
             case _:

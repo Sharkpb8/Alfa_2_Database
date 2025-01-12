@@ -1,5 +1,5 @@
-from src.JsonLoad import load
 import ast
+from src.Genre import GenreCRUD
 from src.Movie import MovieCRUD
 from src.Hall import HallCRUD
 from src.Screening import ScreeningCRUD
