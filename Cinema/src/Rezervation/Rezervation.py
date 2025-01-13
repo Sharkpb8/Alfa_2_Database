@@ -1,11 +1,11 @@
-from src.Reservation.ReservationApplication import ReservationApplication
+from src.Rezervation.RezervationApplication import RezervationApplication
 
-class ReservationInterface:
+class RezervationInterface:
 
     def __init__(self, interface):
         self.isrunning = True
         self.interface = interface
-        self.table_application = ReservationApplication(self)
+        self.table_application = RezervationApplication(self)
 
     def run(self):
         self.isrunning = True

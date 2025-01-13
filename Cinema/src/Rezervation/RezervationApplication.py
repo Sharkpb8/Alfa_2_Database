@@ -1,6 +1,6 @@
 from src.Rezervation.RezervationDAO import RezervationDAO
 
-class ReservationApplication:
+class RezervationApplication:
 
     def __init__(self, table_user_interface):
         self.table_user_interface = table_user_interface
