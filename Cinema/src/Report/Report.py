@@ -20,6 +20,7 @@ class ReportInterface:
         commands = [
             ("Počet prodaných lístků k filmům",self.table_application.TotalMovieTicketsReport),
             ("Rezervovaný zákazníci na nejbližší film",self.table_application.NextScreeningCustomersReport ),
+            ("Všechny rezervace",self.table_application.All_rezervationsReport ),
             ("Ukončit program",self.terminate ),
         ]
 

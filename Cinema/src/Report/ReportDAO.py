@@ -34,3 +34,18 @@ class ReportDAO():
                 print(f"Jméno: {i[0]}, Příjmení: {i[1]}, Datum nákupu: {i[2]}, Množstvý vstupenek: {i[3]}, Celková cena: {i[4]}")
         finally:
             DatabaseSingleton.close_conn()
+    
+    def All_rezervations(self):
+        sql = "SELECT * FROM All_rezervations;"
+        conn = DatabaseSingleton()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(sql)
+            myresult = cursor.fetchall()
+        except Exception as e:
+            print(e)
+        else:
+            for i in myresult:
+                print(f"Jméno: {i[0]}, Příjmení: {i[1]}, Datum rezervace: {i[2]}, Množstvý vstupenek: {i[3]}, Jméno filmu: {i[4]}, Jméno sálu: {i[5]}, typ sálu: {i[6]}")
+        finally:
+            DatabaseSingleton.close_conn()

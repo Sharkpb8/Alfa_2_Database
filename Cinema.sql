@@ -148,4 +148,13 @@ BEGIN
 	insert into Loyalty_points_transactions(Customer_id,ammount,description) values(LAST_INSERT_ID(),_Loyalty_points,'Založení účtu');
 END //
 
+delimiter //
+create view All_rezervations
+as
+select c.Name,c.Last_name,r.date as Rezervation_date,r.Ticket_ammount,m.Name as Movie_name,h.name as Hall_name,h.type as Hall_type
+from Customer as c inner join Rezervation as r on r.Customer_id = c.id
+					inner join Screening as s on r.Screening_id = s.id
+                    inner join Movie as m on s.Movie_id = m.id
+					inner join Hall as h on s.Hall_id = h.id; //
+
 COMMIT

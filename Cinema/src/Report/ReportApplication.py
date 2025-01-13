@@ -13,3 +13,7 @@ class ReportApplication():
     def NextScreeningCustomersReport(self):
         self.table_user_interface.interface.print_line()
         self.table_DAO.NextScreeningCustomers()
+
+    def All_rezervationsReport(self):
+        self.table_user_interface.interface.print_line()
+        self.table_DAO.All_rezervations()
