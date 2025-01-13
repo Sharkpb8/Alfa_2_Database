@@ -1,6 +1,6 @@
 from src.DatabaseSingleton import *
 
-class RezervationApplication:
+class RezervationDAO:
 
     def __init__(self,table_application):
         self.table_application = table_application

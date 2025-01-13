@@ -1,6 +1,6 @@
 from src.DatabaseSingleton import *
 
-class MovieApplication:
+class MovieDAO:
 
     def __init__(self,table_application):
         self.table_application = table_application
