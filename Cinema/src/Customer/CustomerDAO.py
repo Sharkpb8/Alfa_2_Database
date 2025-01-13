@@ -90,22 +90,6 @@ class CustomerDAO:
             for i in data:
                 self.Save(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"])
 
-    def TransferPoints(self,from_id,to_id,ammount):
-        sql = "call TransferPoints(%s,%s,%s)"
-        val = [from_id, to_id, ammount]
-        conn = DatabaseSingleton()
-        cursor = conn.cursor()
-        try:
-            cursor.execute("START TRANSACTION;")
-            cursor.execute(sql, val)
-        except Exception as e:
-            print(e)
-            cursor.execute("ROLLBACK;")
-        else:
-            cursor.execute("COMMIT;")
-        finally:
-            DatabaseSingleton.close_conn()
-
     def NextScreeningCustomers(self):
         sql = "SELECT * FROM NextScreeningCustomers;"
         conn = DatabaseSingleton()

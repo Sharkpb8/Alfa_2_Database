@@ -5,6 +5,7 @@ from src.Hall.Hall import HallInterface
 from src.Screening.Screening import ScreeningInterface
 from src.Customer.Customer import CustomerInterface
 from src.Rezervation.Rezervation import RezervationInterface
+from src.Point.Point import PointInterface
 
 if __name__ == "__main__":
     ui = UserInterface()
@@ -14,4 +15,5 @@ if __name__ == "__main__":
     ui.table_user_interface.append(ScreeningInterface(ui))
     ui.table_user_interface.append(CustomerInterface(ui))
     ui.table_user_interface.append(RezervationInterface(ui))
+    ui.table_user_interface.append(PointInterface(ui))
     ui.run()
