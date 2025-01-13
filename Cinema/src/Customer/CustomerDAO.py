@@ -89,18 +89,3 @@ class CustomerDAO:
             data = data["Customer"]
             for i in data:
                 self.Save(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"])
-
-    def NextScreeningCustomers(self):
-        sql = "SELECT * FROM NextScreeningCustomers;"
-        conn = DatabaseSingleton()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(sql)
-            myresult = cursor.fetchall()
-        except Exception as e:
-            print(e)
-        else:
-            for i in myresult:
-                print(f"Jméno: {i[0]}, Příjmení: {i[1]}, Datum nákupu: {i[2]}, Množstvý vstupenek: {i[3]}, Celková cena: {i[4]}")
-        finally:
-            DatabaseSingleton.close_conn()

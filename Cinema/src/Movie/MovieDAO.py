@@ -74,18 +74,3 @@ class MovieDAO:
             data = data["Movie"]
             for i in data:
                 self.Save(i["Genre_id"],i["Name"],i["Length"],i["Length"],i["Premiere_date"])
-
-    def TotalMovieTickets(self):
-        sql = "SELECT * FROM TotalMovieTickets;"
-        conn = DatabaseSingleton()
-        cursor = conn.cursor()
-        try:
-            cursor.execute(sql)
-            myresult = cursor.fetchall()
-        except Exception as e:
-            print(e)
-        else:
-            for i in myresult:
-                print(f"Jméno filmu: {i[0]}, Celkový počet lístků: {i[1]}")
-        finally:
-            DatabaseSingleton.close_conn()
