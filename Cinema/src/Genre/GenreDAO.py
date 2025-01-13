@@ -69,7 +69,7 @@ class GenreDAO():
         finally:
             DatabaseSingleton.close_conn()
         
-    def LoadGenre(self):
+    def Load(self):
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Genre"]

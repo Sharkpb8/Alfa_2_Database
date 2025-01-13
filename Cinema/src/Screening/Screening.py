@@ -1,45 +1,55 @@
-from src.ScreeningDAO import Save, Update, Delete, Read, LoadScreening
+from src.Screening.ScreeningApplication import ScreeningApplication
 
-def showoptions(list):
-    """
-    Displays the items in a list with numbered options.
+class ScreeningInterface:
 
-    :param list: A list of items to display as options.
-    :type list: list
-    """
-    count = 1
-    for i in list:
-        print(f"{count}. {i}")
-        count += 1
+    def __init__(self, interface):
+        self.isrunning = True
+        self.interface = interface
+        self.table_application = ScreeningApplication(self)
 
-def ScreeningCRUD():
-    running = True
-    while running:
-        options = ["Vložit", "Upravit", "Smazat", "Číst", "Načíst ze souboru", "Ukončit"]
-        print("Vyberte operaci kterou chcete provést na tabulce Projekce")
-        showoptions(options)
-        choice = input("Vybírám si: ")
-        match choice:
-            case "Vložit" | "1":
-                movie_id = int(input("ID filmu: "))
-                hall_id = int(input("ID sálu: "))
-                date = input("Datum a čas (YYYY-MM-DD HH:MM): ")
-                Save(movie_id, hall_id, date)
-            case "Upravit" | "2":
-                id = int(input("ID upravované projekce: "))
-                movie_id = int(input("Nový ID filmu: "))
-                hall_id = int(input("Nový ID sálu: "))
-                date = input("Nové datum a čas (YYYY-MM-DD HH:MM): ")
-                Update(id, movie_id, hall_id, date)
-            case "Smazat" | "3":
-                id = int(input("ID projekce, kterou chcete smazat: "))
-                Delete(id)
-            case "Číst" | "4":
-                Read()
-            case "Načíst ze souboru" | "5":
-                LoadScreening()
-            case "Ukončit" | "6":
-                running = False
-            case _:
-                print("Špatná volba")
-        print("")
+    def run(self):
+        self.isrunning = True
+        while self.isrunning:
+            self.menu_input()
+
+    def print_message(self, message):
+        self.interface.print_line()
+        print(message)
+
+    def menu_input(self):
+        commands = [
+            ("Vložit", self.table_application.SaveScreening),
+            ("Upravit", self.table_application.UpdateScreening),
+            ("Smazat", self.table_application.DeleteScreening),
+            ("Číst", self.table_application.ReadScreening),
+            ("načíst ze souboru", self.table_application.LoadScreening),
+            ("Ukončit program", self.terminate),
+        ]
+
+        self.interface.print_line()
+        print("Vyberte operaci:")
+        num = 0
+        for label, action in commands:
+            num += 1
+            print("\t" + str(num) + ". " + label)
+
+        choosen_num = None
+        while choosen_num is None:
+            choosen_num = input("Zadejte číslo příkazu (1-" + str(len(commands)) + "): ").strip()
+            try:
+                choosen_num = int(choosen_num)
+                if not 0 < choosen_num <= len(commands):
+                    raise Exception()
+            except:
+                print("Neplatné zadání musíte zadat číslo mezi 1 až " + str(len(commands)))
+                choosen_num = None
+
+        commands[choosen_num - 1][1]()
+        if self.isrunning:
+            self.run()
+
+    def terminate(self):
+        self.isrunning = False
+
+    def proces_input(self, message):
+        return self.interface.new_input(message)

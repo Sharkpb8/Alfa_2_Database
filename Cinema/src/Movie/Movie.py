@@ -1,49 +1,55 @@
-from src.MovieDAO import Save, Update, Delete, Read, LoadMovie
+from src.Movie.MovieApplication import MovieApplication
 
-def showoptions(list):
-    """
-    Displays the items in a list with numbered options.
+class MovieInterface:
 
-    :param list: A list of items to display as options.
-    :type list: list
-    """
-    count = 1
-    for i in list:
-        print(f"{count}. {i}")
-        count += 1
+    def __init__(self, interface):
+        self.isrunning = True
+        self.interface = interface
+        self.table_application = MovieApplication(self)
 
-def MovieCRUD():
-    running = True
-    while running:
-        options = ["Vložit", "Upravit", "Smazat", "Číst", "Načíst ze souboru", "Ukončit"]
-        print("Vyberte operaci kterou chcete provést na tabulce Film")
-        showoptions(options)
-        choice = input("Vybírám si: ")
-        match choice:
-            case "Vložit" | "1":
-                genre_id = int(input("ID žánru: "))
-                name = input("Jméno filmu: ")
-                length = int(input("Délka filmu (minuty): "))
-                price = float(input("Cena: "))
-                premiere_date = input("Datum premiéry (YYYY-MM-DD): ")
-                Save(genre_id, name, length, price, premiere_date)
-            case "Upravit" | "2":
-                id = int(input("ID upravovaného filmu: "))
-                genre_id = int(input("Nové ID žánru: "))
-                name = input("Nové jméno filmu: ")
-                length = int(input("Nová délka filmu (minuty): "))
-                price = float(input("Nová cena: "))
-                premiere_date = input("Nový datum premiéry (YYYY-MM-DD): ")
-                Update(id, genre_id, name, length, price, premiere_date)
-            case "Smazat" | "3":
-                id = int(input("ID filmu, který chcete smazat: "))
-                Delete(id)
-            case "Číst" | "4":
-                Read()
-            case "Načíst ze souboru" | "5":
-                LoadMovie()
-            case "Ukončit" | "6":
-                running = False
-            case _:
-                print("Špatná volba")
-        print("")
+    def run(self):
+        self.isrunning = True
+        while self.isrunning:
+            self.menu_input()
+
+    def print_message(self, message):
+        self.interface.print_line()
+        print(message)
+
+    def menu_input(self):
+        commands = [
+            ("Vložit", self.table_application.SaveMovie),
+            ("Upravit", self.table_application.UpdateMovie),
+            ("Smazat", self.table_application.DeleteMovie),
+            ("Číst", self.table_application.ReadMovie),
+            ("načíst ze souboru", self.table_application.LoadMovie),
+            ("Ukončit program", self.terminate),
+        ]
+
+        self.interface.print_line()
+        print("Vyberte operaci:")
+        num = 0
+        for label, action in commands:
+            num += 1
+            print("\t" + str(num) + ". " + label)
+
+        choosen_num = None
+        while choosen_num is None:
+            choosen_num = input("Zadejte číslo příkazu (1-" + str(len(commands)) + "): ").strip()
+            try:
+                choosen_num = int(choosen_num)
+                if not 0 < choosen_num <= len(commands):
+                    raise Exception()
+            except:
+                print("Neplatné zadání musíte zadat číslo mezi 1 až " + str(len(commands)))
+                choosen_num = None
+
+        commands[choosen_num - 1][1]()
+        if self.isrunning:
+            self.run()
+
+    def terminate(self):
+        self.isrunning = False
+
+    def proces_input(self, message):
+        return self.interface.new_input(message)

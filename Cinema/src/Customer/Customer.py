@@ -1,53 +1,55 @@
-from src.CustomerDAO import Save, Update, Delete, Read,Get_Customer_point,LoadCustomer
+from src.Customer.CustomerApplication import CustomerApplication
 
-def showoptions(list):
-    """
-    Displays the items in a list with numbered options.
+class CustomerInterface:
 
-    :param list: A list of items to display as options.
-    :type list: list
-    """
-    count = 1
-    for i in list:
-        print(f"{count}. {i}")
-        count += 1
+    def __init__(self, interface):
+        self.isrunning = True
+        self.interface = interface
+        self.table_application = CustomerApplication(self)
 
-def CustomerCRUD():
-    running = True
-    while running:
-        options = ["Vložit", "Upravit", "Smazat", "Číst", "Načíst ze souboru", "Ukončit"]
-        print("Vyberte operaci kterou chcete provést na tabulce Zákazník")
-        showoptions(options)
-        choice = input("Vybírám si: ")
-        match choice:
-            case "Vložit" | "1":
-                name = input("Jméno zákazníka: ")
-                last_name = input("Příjmení zákazníka: ")
-                loyalty_program = int(input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne): "))
-                if(loyalty_program == 1):
-                    loyalty_points = float(input("Počet věrnostních bodů: "))
-                    Save(name, last_name, loyalty_program, loyalty_points)
-                else:
-                    Save(name, last_name, loyalty_program, 0)
-            case "Upravit" | "2":
-                id = int(input("ID upravovaného zákazníka: "))
-                name = input("Nové jméno zákazníka: ")
-                last_name = input("Nové příjmení zákazníka: ")
-                loyalty_program = int(input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne): "))
-                if(loyalty_program == 1):
-                    loyalty_points = float(input("Nový počet věrnostních bodů: "))
-                    Update(id, name, last_name, loyalty_program, loyalty_points)
-                else:
-                    Update(id,name,last_name,loyalty_program,Get_Customer_point(id))
-            case "Smazat" | "3":
-                id = int(input("ID zákazníka, kterého chcete smazat: "))
-                Delete(id)
-            case "Číst" | "4":
-                Read()
-            case "Načíst ze souboru" | "5":
-                LoadCustomer()
-            case "Ukončit" | "6":
-                running = False
-            case _:
-                print("Špatná volba")
-        print("")
+    def run(self):
+        self.isrunning = True
+        while self.isrunning:
+            self.menu_input()
+
+    def print_message(self, message):
+        self.interface.print_line()
+        print(message)
+
+    def menu_input(self):
+        commands = [
+            ("Vložit", self.table_application.SaveCustomer),
+            ("Upravit", self.table_application.UpdateCustomer),
+            ("Smazat", self.table_application.DeleteCustomer),
+            ("Číst", self.table_application.ReadCustomer),
+            ("načíst ze souboru", self.table_application.LoadCustomer),
+            ("Ukončit program", self.terminate),
+        ]
+
+        self.interface.print_line()
+        print("Vyberte operaci:")
+        num = 0
+        for label, action in commands:
+            num += 1
+            print("\t" + str(num) + ". " + label)
+
+        choosen_num = None
+        while choosen_num is None:
+            choosen_num = input("Zadejte číslo příkazu (1-" + str(len(commands)) + "): ").strip()
+            try:
+                choosen_num = int(choosen_num)
+                if not 0 < choosen_num <= len(commands):
+                    raise Exception()
+            except:
+                print("Neplatné zadání musíte zadat číslo mezi 1 až " + str(len(commands)))
+                choosen_num = None
+
+        commands[choosen_num - 1][1]()
+        if self.isrunning:
+            self.run()
+
+    def terminate(self):
+        self.isrunning = False
+
+    def proces_input(self, message):
+        return self.interface.new_input(message)

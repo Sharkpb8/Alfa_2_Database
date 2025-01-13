@@ -24,4 +24,4 @@ class GenreApplication():
         self.table_DAO.Read()
     
     def LoadGenre(self):
-        self.table_DAO.LoadGenre()
+        self.table_DAO.Load()
