@@ -2,3 +2,4 @@ appconfig.json
 venv
 __pycache__
 temp.py
+cloc-2.00.exe
