@@ -1,10 +1,9 @@
-from src.IsolationLevel.IsolationLevelDAO import IsolationLevelDAO
+from src.DatabaseSingleton import *
 
 class IsolationLevelApplication:
 
     def __init__(self, table_user_interface):
         self.table_user_interface = table_user_interface
-        self.table_DAO = IsolationLevelDAO(self)
 
     def SetIsolationLevel(self):
         commands = [
@@ -31,8 +30,7 @@ class IsolationLevelApplication:
             except:
                 print("Neplatné zadání musíte zadat číslo mezi 1 až " + str(len(commands)))
                 choosen_num = None
-        self.table_DAO.Set(commands[choosen_num-1][1])
+        DatabaseSingleton.set_isolation_level(commands[choosen_num-1][1])
     
     def ReadIsolationLevel(self):
-        self.table_user_interface.interface.print_line()
-        self.table_DAO.Read()
+        self.table_user_interface.print_message(f"Aktuální izolační level: {DatabaseSingleton.isolation_level}")

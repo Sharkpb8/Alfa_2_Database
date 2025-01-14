@@ -3,10 +3,12 @@ import json
 
 class DatabaseSingleton:
     conn = None
+    isolation_level = "REPEATABLE READ"
 
     def __new__(cls):
         if not cls.conn:
             cls.new_conn()
+        cls.set_session_isolation_level()
         return cls.conn
     
     @classmethod
@@ -31,6 +33,17 @@ class DatabaseSingleton:
         with open("./Cinema/appconfig.json","r") as f:
             config = json.load(f)
             return config["database"][key]
+    
+    @classmethod
+    def set_session_isolation_level(cls):
+        sql = "SET SESSION TRANSACTION ISOLATION LEVEL %s;"
+        val = [cls.isolation_level]
+        cursor = cls.conn.cursor()
+        cursor.execute(sql,val)
+    
+    @classmethod
+    def set_isolation_level(cls,new_level):
+        cls.isolation_level = new_level
 
 
 # conn = DatabaseSingleton.new_conn()
