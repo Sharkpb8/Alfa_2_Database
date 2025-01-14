@@ -157,5 +157,15 @@ from Customer as c inner join Rezervation as r on r.Customer_id = c.id
 					inner join Screening as s on r.Screening_id = s.id
                     inner join Movie as m on s.Movie_id = m.id
 					inner join Hall as h on s.Hall_id = h.id; //
+                    
+delimiter //
+create view Hall_Type_Summary
+as
+select h.Type, g.Name,sum(r.Total_price) as Total_revenue
+from Rezervation as r inner join Screening as s on r.Screening_id = s.id
+                    inner join Movie as m on s.Movie_id = m.id
+                    inner join Genre as g on m.Genre_id = g.id
+					inner join Hall as h on s.Hall_id = h.id 
+group by h.Type,g.Name; //
 
 COMMIT

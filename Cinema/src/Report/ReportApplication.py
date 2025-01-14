@@ -21,3 +21,7 @@ class ReportApplication():
     def MovieSummaryReport(self):
         self.table_user_interface.interface.print_line()
         self.table_DAO.MovieSummary()
+
+    def Hall_Type_SummaryReport(self):
+        self.table_user_interface.interface.print_line()
+        self.table_DAO.Hall_Type_Summary()

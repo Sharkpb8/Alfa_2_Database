@@ -22,6 +22,7 @@ class ReportInterface:
             ("Rezervovaný zákazníci na nejbližší film",self.table_application.NextScreeningCustomersReport ),
             ("Všechny rezervace",self.table_application.All_rezervationsReport ),
             ("Souhrn filmů",self.table_application.MovieSummaryReport ),
+            ("Výdělek žánrů v typech sálů",self.table_application.Hall_Type_SummaryReport ),
             ("Ukončit program",self.terminate ),
         ]
 

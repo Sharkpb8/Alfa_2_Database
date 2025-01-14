@@ -64,3 +64,18 @@ class ReportDAO():
                 print(f"Název filmu: {i[0]}, Celkový počet rezervací: {i[1]}, Box Office: {i[2]}, Průměrný množstvý vstupenek: {i[3]}, Průměrná cena obědnávky: {i[4]}")
         finally:
             DatabaseSingleton.close_conn()
+
+    def Hall_Type_Summary(self):
+        sql = "SELECT * FROM Hall_Type_Summary;"
+        conn = DatabaseSingleton()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(sql)
+            myresult = cursor.fetchall()
+        except Exception as e:
+            print(e)
+        else:
+            for i in myresult:
+                print(f"Typ sálu: {i[0]}, Žánr filmu: {i[1]}, Zisk: {i[2]}")
+        finally:
+            DatabaseSingleton.close_conn()
