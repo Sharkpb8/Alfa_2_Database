@@ -1,10 +1,29 @@
 import ast
+from src.Genre.Genre import GenreInterface
+from src.Movie.Movie import MovieInterface
+from src.Hall.Hall import HallInterface
+from src.Screening.Screening import ScreeningInterface
+from src.Customer.Customer import CustomerInterface
+from src.Rezervation.Rezervation import RezervationInterface
+from src.Point.Point import PointInterface
+from src.Report.Report import ReportInterface
+from src.IsolationLevel.IsolationLevel import IsolationLevelInterface
 
 class UserInterface:
 
     def __init__(self):
         self.isrunning = True
-        self.table_user_interface = []
+        self.table_user_interface = [
+            MovieInterface(self),
+            GenreInterface(self),
+            HallInterface(self),
+            ScreeningInterface(self),
+            CustomerInterface(self),
+            RezervationInterface(self),
+            PointInterface(self),
+            ReportInterface(self),
+            IsolationLevelInterface(self)
+        ]
 
     def run(self):
         while self.isrunning:

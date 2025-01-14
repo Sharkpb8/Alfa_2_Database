@@ -36,10 +36,9 @@ class DatabaseSingleton:
     
     @classmethod
     def set_session_isolation_level(cls):
-        sql = "SET SESSION TRANSACTION ISOLATION LEVEL %s;"
-        val = [cls.isolation_level]
+        sql = f"SET SESSION TRANSACTION ISOLATION LEVEL {cls.isolation_level};"
         cursor = cls.conn.cursor()
-        cursor.execute(sql,val)
+        cursor.execute(sql)
     
     @classmethod
     def set_isolation_level(cls,new_level):
