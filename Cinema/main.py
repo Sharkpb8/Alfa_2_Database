@@ -7,6 +7,7 @@ from src.Customer.Customer import CustomerInterface
 from src.Rezervation.Rezervation import RezervationInterface
 from src.Point.Point import PointInterface
 from src.Report.Report import ReportInterface
+from src.IsolationLevel.IsolationLevel import IsolationLevelInterface
 
 if __name__ == "__main__":
     ui = UserInterface()
@@ -18,4 +19,5 @@ if __name__ == "__main__":
     ui.table_user_interface.append(RezervationInterface(ui))
     ui.table_user_interface.append(PointInterface(ui))
     ui.table_user_interface.append(ReportInterface(ui))
+    ui.table_user_interface.append(IsolationLevelInterface(ui))
     ui.run()

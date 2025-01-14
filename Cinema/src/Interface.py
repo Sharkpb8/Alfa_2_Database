@@ -37,6 +37,7 @@ class UserInterface:
             ("Úprava Rezervací", self.table_user_interface[5].menu_input),
             ("Transakce bodů", self.table_user_interface[6].menu_input),
             ("Souhrné reporty", self.table_user_interface[7].menu_input),
+            ("Nastavení izolačního levelu", self.table_user_interface[8].menu_input),
             ("Ukončit program", self.terminate),
         ]
 
