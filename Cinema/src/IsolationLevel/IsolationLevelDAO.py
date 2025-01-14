@@ -6,7 +6,7 @@ class IsolationLevelDAO():
         self.table_application = table_application
 
     def Set(self,Level):
-        sql = "idk"
+        sql = "SET SESSION TRANSACTION ISOLATION LEVEL %s;"
         val = [Level]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
