@@ -21,6 +21,7 @@ class ReportInterface:
             ("Počet prodaných lístků k filmům",self.table_application.TotalMovieTicketsReport),
             ("Rezervovaný zákazníci na nejbližší film",self.table_application.NextScreeningCustomersReport ),
             ("Všechny rezervace",self.table_application.All_rezervationsReport ),
+            ("Souhrn filmů",self.table_application.MovieSummaryReport ),
             ("Ukončit program",self.terminate ),
         ]
 

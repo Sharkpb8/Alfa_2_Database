@@ -17,3 +17,7 @@ class ReportApplication():
     def All_rezervationsReport(self):
         self.table_user_interface.interface.print_line()
         self.table_DAO.All_rezervations()
+
+    def MovieSummaryReport(self):
+        self.table_user_interface.interface.print_line()
+        self.table_DAO.MovieSummary()

@@ -120,12 +120,13 @@ from Movie as m inner join Screening as s on s.Movie_id = m.id
 				inner join Rezervation as r on r.Screening_id = s.id
 group by m.Name; //
 
--- ještě není uděláno
-SELECT m.Name AS Movie_Name,COUNT(r.id) AS Number_of_Reservations,SUM(r.Total_price) AS Total_Revenue,AVG(r.Ticket_ammount),AVG(r.Total_price) AS Average_Rezervation_Price
+delimiter //
+create view MovieSummary
+as
+SELECT m.Name AS Movie_Name,COUNT(r.id) AS Number_of_Reservations,SUM(r.Total_price) AS Total_Revenue,round(AVG(r.Ticket_ammount),2) as Average_ticket_ammount,round(AVG(r.Total_price),2) AS Average_Rezervation_Price
 FROM Movie m JOIN Screening s ON m.id = s.Movie_id
 			JOIN Rezervation r ON s.id = r.Screening_id
-GROUP BY m.Name;
--- ještě není uděláno
+GROUP BY m.Name; //
 
 DELIMITER //
 CREATE PROCEDURE TransferPoints(IN _from_id int,IN _to_id int,IN _ammount int)
