@@ -7,6 +7,8 @@ id int primary key auto_increment,
 Name varchar(30) NOT NULL unique
 );
 
+ALTER TABLE Genre ENGINE = MyISAM;
+
 create table Movie(
 id int primary key auto_increment,
 Genre_id int NOT NULL, 
