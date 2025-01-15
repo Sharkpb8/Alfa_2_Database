@@ -54,13 +54,14 @@ Ticket_ammount int check(Ticket_ammount >0) default(0) NOT NULL,
 Total_price decimal(10,2) check(Total_price>=0) NOT NULL
 );
 
-create table Loyalty_points_transactions(
+create table Points(
 id int primary key auto_increment,
 Customer_id int,
 foreign key(Customer_id) references Customer(id) ON DELETE CASCADE,
 ammount decimal(10,2),
+date date default (curdate()),
 description varchar(50)
-); -- add date
+);
 
 DELIMITER //
 CREATE PROCEDURE InsertRezervation(IN _Customer_id int,IN _Screening_id int,IN _Date date,IN _Ticket_ammount int)
@@ -136,19 +137,19 @@ BEGIN
     UPDATE Customer 
     SET Loyalty_points = Loyalty_points-_ammount WHERE id = _from_id;
     
-	insert into Loyalty_points_transactions(Customer_id,ammount,description) values(_from_id,-_ammount,'Převod');
+	insert into Points(Customer_id,ammount,description) values(_from_id,-_ammount,'Převod');
     
 	UPDATE Customer 
     SET Loyalty_points = Loyalty_points+_ammount WHERE id = _to_id;
     
-    insert into Loyalty_points_transactions(Customer_id,ammount,description) values(_to_id,_ammount,'Převod');
+    insert into Points(Customer_id,ammount,description) values(_to_id,_ammount,'Převod');
 END //
 
 DELIMITER //
 CREATE PROCEDURE CreateCustomer(IN _Name varchar(30), IN _Last_name varchar(30), In _Loyalty_program bit, In _Loyalty_points varchar(30))
 BEGIN
     insert into Customer(Name, Last_name, Loyalty_program, Loyalty_points) values(_Name,_Last_name,_Loyalty_program,_Loyalty_points);
-	insert into Loyalty_points_transactions(Customer_id,ammount,description) values(LAST_INSERT_ID(),_Loyalty_points,'Založení účtu');
+	insert into Points(Customer_id,ammount,description) values(LAST_INSERT_ID(),_Loyalty_points,'Založení účtu');
 END //
 
 delimiter //
