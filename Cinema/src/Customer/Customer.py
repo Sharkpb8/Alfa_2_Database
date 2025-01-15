@@ -53,3 +53,19 @@ class CustomerInterface:
 
     def proces_input(self, message):
         return self.interface.new_input(message)
+
+    def confirmation(self):
+        self.interface.print_line()
+        answer = None
+        while not answer:
+            try:
+                answer = input("Opravdu chcete provést tuto akci? (ano/ne): ").lower()
+                if(answer not in ["ano","ne"]):
+                    raise Exception
+            except Exception:
+                print("Neplatné zadání musíte zadat číslo 0 nebo 1")
+                answer = None
+        if(answer == "ano"):
+            return True
+        else:
+            return False

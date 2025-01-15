@@ -4,7 +4,7 @@ import json
 
 class DatabaseSingleton:
     conn = None
-    isolation_level = "REPEATABLE READ"
+    isolation_level = "READ UNCOMMITTED"
     active_connections = []
 
     def __new__(cls):
@@ -29,11 +29,16 @@ class DatabaseSingleton:
         cls.conn = connection
     
     @classmethod
-    def close_conn(cls):
+    def close_conn(cls,connection = None):
         if(cls.conn):
-            for i in cls.active_connections:
-                i.close()
-            cls.conn = None
+            if(connection):
+                cls.active_connections.remove(connection)
+                connection.close()
+            else:
+                for i in cls.active_connections:
+                    cls.active_connections.remove(i)
+                    i.close()
+                cls.conn = None
 
     @classmethod
     def readconfig(cls,key):
