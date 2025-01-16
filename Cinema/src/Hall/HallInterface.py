@@ -53,3 +53,7 @@ class HallInterface:
 
     def proces_input(self, message):
         return self.interface.new_input(message)
+    
+    def print_read(self,list):
+        for i in list:
+            print(i)

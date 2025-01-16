@@ -1,13 +1,14 @@
 from src.DatabaseSingleton import *
+from src.Hall.Hall import Hall
 
 class HallDAO:
 
     def __init__(self,table_application):
         self.table_application = table_application
 
-    def Save(self,Name, Type):
+    def Save(self,h):
         sql = "INSERT INTO Hall(Name, Type) VALUES (%s, %s);"
-        val = [Name, Type]
+        val = [h.Name, h.Type]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -21,9 +22,9 @@ class HallDAO:
         finally:
             DatabaseSingleton.close_conn()
 
-    def Update(self,id, Name, Type):
+    def Update(self,h):
         sql = "UPDATE Hall SET Name = %s, Type = %s WHERE id = %s;"
-        val = [Name, Type, id]
+        val = [h.Name, h.Type, h.id]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -63,10 +64,14 @@ class HallDAO:
         except Exception as e:
             print(e)
         else:
+            list = []
             for i in myresult:
-                print(f"ID: {i[0]}, Jméno: {i[1]}, Typ: {i[2]}")
+                h = Hall(i[1], i[2], i[0])
+                list.append(h)
         finally:
             DatabaseSingleton.close_conn()
+            if(len(list)>0):
+                return list
 
     def Load(self,data):
         with open("./Cinema/data.json",encoding="utf-8") as f:
