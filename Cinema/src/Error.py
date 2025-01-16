@@ -31,3 +31,9 @@ class MoviePriceValueError(Exception):
     pass
 class MoviePremiereDateValueError(Exception):
     pass
+
+#errors for Hall
+class HallNameValueError(Exception):
+    pass
+class HallTypeValueError(Exception):
+    pass
