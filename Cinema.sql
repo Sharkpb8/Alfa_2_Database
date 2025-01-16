@@ -146,9 +146,9 @@ BEGIN
 END //
 
 DELIMITER //
-CREATE PROCEDURE CreateCustomer(IN _Name varchar(30), IN _Last_name varchar(30), In _Loyalty_program bit, In _Loyalty_points varchar(30))
+CREATE PROCEDURE CreateCustomer(IN _Name varchar(30), IN _Last_name varchar(30), In _Loyalty_program bit, In _Loyalty_points varchar(30),_Registry_date date)
 BEGIN
-    insert into Customer(Name, Last_name, Loyalty_program, Loyalty_points) values(_Name,_Last_name,_Loyalty_program,_Loyalty_points);
+    insert into Customer(Name, Last_name, Loyalty_program, Loyalty_points,Registry_date) values(_Name,_Last_name,_Loyalty_program,_Loyalty_points,_Registry_date);
 	insert into Points(Customer_id,ammount,description) values(LAST_INSERT_ID(),_Loyalty_points,'Založení účtu');
 END //
 

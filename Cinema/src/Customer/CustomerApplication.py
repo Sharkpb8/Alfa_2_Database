@@ -1,4 +1,5 @@
 from src.Customer.CustomerDAO import CustomerDAO
+from src.Customer.Customer import Customer
 
 class CustomerApplication:
 
@@ -9,23 +10,29 @@ class CustomerApplication:
     def SaveCustomer(self):
         Name = self.table_user_interface.proces_input("Jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Příjmení zákazníka")
+        Registry_date = self.table_user_interface.proces_input("Den registrace (YYYY-MM-DD)")
         loyalty_program = int(self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)"))
         if(loyalty_program == 1):
             loyalty_points = float(input("Počet věrnostních bodů"))
-            self.table_DAO.Save(Name, Last_name, loyalty_program, loyalty_points)
+            c = Customer(Name,Last_name,loyalty_program,loyalty_points,Registry_date)
+            self.table_DAO.Save(c)
         else:
-            self.table_DAO.Save(Name, Last_name, loyalty_program, 0)
+            c = Customer(Name,Last_name,loyalty_program,0,Registry_date)
+            self.table_DAO.Save(c)
 
     def UpdateCustomer(self):
         id = self.table_user_interface.proces_input("ID zákazníka na úpravu")
         Name = self.table_user_interface.proces_input("Nové jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Nové příjmení zákazníka")
+        Registry_date = self.table_user_interface.proces_input("Nový den registrace (YYYY-MM-DD)")
         loyalty_program = int(self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)"))
         if(loyalty_program == 1):
             loyalty_points = float(self.table_user_interface.proces_input("Nový počet věrnostních bodů"))
-            self.table_DAO.Update(id, Name, Last_name, loyalty_program, loyalty_points)
+            c = Customer(id, Name, Last_name, loyalty_program, loyalty_points,Registry_date)
+            self.table_DAO.Update(c)
         else:
-            self.table_DAO.Update(id,Name,Last_name,loyalty_program,self.table_DAO.Get_Customer_point(id))
+            c = Customer(id,Name,Last_name,loyalty_program,self.table_DAO.Get_Customer_point(id),Registry_date)
+            self.table_DAO.Update(c)
 
     def DeleteCustomer(self):
         id = self.table_user_interface.proces_input("ID zákazníka na smazání: ")
@@ -33,7 +40,7 @@ class CustomerApplication:
     
     def ReadCustomer(self):
         self.table_user_interface.interface.print_line()
-        self.table_DAO.Read()
+        self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadCustomer(self):
         self.table_DAO.Load()

@@ -1,14 +1,15 @@
 from src.DatabaseSingleton import *
-#import traceback
+from src.Customer.Customer import Customer
+import traceback
 
 class CustomerDAO:
 
     def __init__(self,table_application):
         self.table_application = table_application
 
-    def Save(self,Name, Last_name, Loyalty_program, Loyalty_points):
-        sql = "call CreateCustomer (%s, %s, %s, %s);"
-        val = [Name, Last_name, Loyalty_program, Loyalty_points]
+    def Save(self,c):
+        sql = "call CreateCustomer (%s, %s, %s, %s,%s);"
+        val = [c.Name, c.Last_name, c.Loyalty_program, c.Loyalty_points,c.Registry_date]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -23,7 +24,7 @@ class CustomerDAO:
                 raise Exception
         except Exception as e:
             print(e)
-            #print(traceback.format_exc())
+            print(traceback.format_exc())
             cursor.execute("ROLLBACK;")
         else:
             cursor.execute("COMMIT;")
@@ -31,9 +32,9 @@ class CustomerDAO:
             DatabaseSingleton.close_conn()
 
 
-    def Update(self,id, Name, Last_name, Loyalty_program, Loyalty_points):
+    def Update(self,c):
         sql = "UPDATE Customer SET Name = %s, Last_name = %s, Loyalty_program = %s, Loyalty_points = %s WHERE id = %s;"
-        val = [Name, Last_name, Loyalty_program, Loyalty_points, id]
+        val = [c.Name, c.Last_name, c.Loyalty_program, c.Loyalty_points, c.id]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -73,10 +74,14 @@ class CustomerDAO:
         except Exception as e:
             print(e)
         else:
+            list = []
             for i in myresult:
-                print(f"ID: {i[0]}, Jméno: {i[1]}, Příjmení: {i[2]}, Člen věrnostního programu: {'Ano' if i[3] else 'Ne'}, Body: {i[4]}, Registrace: {i[5]}")
+                c = Customer(i[1], i[2], i[3], i[4], i[5], i[0])
+                list.append(c)
         finally:
             DatabaseSingleton.close_conn()
+            if(len(list)>0):
+                return list
 
     def Get_Customer_point(self,id):
         sql = "select Loyalty_points from Customer where id = %s"

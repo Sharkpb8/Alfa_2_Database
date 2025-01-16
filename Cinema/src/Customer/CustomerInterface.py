@@ -69,3 +69,7 @@ class CustomerInterface:
             return True
         else:
             return False
+    
+    def print_read(self,list):
+        for i in list:
+            print(i)
