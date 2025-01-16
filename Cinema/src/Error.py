@@ -19,3 +19,15 @@ class GenreNameValueError(Exception):
 #errors for Genre
 class GenreNameValueError(Exception):
     pass
+
+#errors for Movie
+class GenreIDValueError(Exception):
+    pass
+class MovieNameValueError(Exception):
+    pass
+class MovieLengthValueError(Exception):
+    pass
+class MoviePriceValueError(Exception):
+    pass
+class MoviePremiereDateValueError(Exception):
+    pass
