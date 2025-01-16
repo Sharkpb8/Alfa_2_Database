@@ -1,6 +1,6 @@
 from src.DatabaseSingleton import *
 from src.Customer.Customer import Customer
-import traceback
+# import traceback
 
 class CustomerDAO:
 
@@ -24,7 +24,7 @@ class CustomerDAO:
                 raise Exception
         except Exception as e:
             print(e)
-            print(traceback.format_exc())
+            # print(traceback.format_exc())
             cursor.execute("ROLLBACK;")
         else:
             cursor.execute("COMMIT;")

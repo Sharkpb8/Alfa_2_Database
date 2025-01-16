@@ -1,4 +1,5 @@
 from src.Rezervation.RezervationDAO import RezervationDAO
+from src.Rezervation.Rezervation import Rezervation
 
 class RezervationApplication:
 
@@ -11,8 +12,8 @@ class RezervationApplication:
         Screening_id = self.table_user_interface.proces_input("ID projekce: ")
         Date = self.table_user_interface.proces_input("Datum rezervace (YYYY-MM-DD): ")
         Ticket_ammount = self.table_user_interface.proces_input("Počet lístků: ")
-        Total_price = self.table_user_interface.proces_input("Celková cena: ")
-        self.table_DAO.Save(Customer_id, Screening_id, Date, Ticket_ammount, Total_price)
+        r = Rezervation(Customer_id, Screening_id, Date, Ticket_ammount)
+        self.table_DAO.Save(r)
 
     def UpdateReservation(self):
         id = self.table_user_interface.proces_input("ID rezervace na úpravu: ")
@@ -20,8 +21,8 @@ class RezervationApplication:
         Screening_id = self.table_user_interface.proces_input("Nové ID projekce: ")
         Date = self.table_user_interface.proces_input("Nové datum rezervace (YYYY-MM-DD): ")
         Ticket_ammount = self.table_user_interface.proces_input("Nový počet lístků: ")
-        Total_price = self.table_user_interface.proces_input("Nová celková cena: ")
-        self.table_DAO.Update(id, Customer_id, Screening_id, Date, Ticket_ammount, Total_price)
+        r = Rezervation(Customer_id, Screening_id, Date, Ticket_ammount,0, id)
+        self.table_DAO.Update(r)
 
     def DeleteReservation(self):
         id = self.table_user_interface.proces_input("ID rezervace na smazání: ")
@@ -29,7 +30,7 @@ class RezervationApplication:
     
     def ReadReservation(self):
         self.table_user_interface.interface.print_line()
-        self.table_DAO.Read()
+        self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadReservation(self):
         self.table_DAO.Load()
