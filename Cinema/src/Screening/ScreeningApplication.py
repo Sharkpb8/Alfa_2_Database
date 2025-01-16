@@ -7,7 +7,6 @@ class ScreeningApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = ScreeningDAO(self)
 
-    #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
     def SaveScreening(self):
         Movie_id = self.table_user_interface.proces_input("ID filmu: ")
@@ -16,11 +15,11 @@ class ScreeningApplication:
         try:
             s = Screening(Movie_id, Hall_id, Date)
         except ScreeningMovieIDValueError:
-            print("Neplatný Movie_id: Musí to být kladné celé číslo.")
+            self.table_user_interface.print_message("Neplatný Movie_id: Musí to být kladné celé číslo.")
         except ScreeningHallIDValueError:
-            print("Neplatný Hall_id: Musí to být kladné celé číslo.")
+            self.table_user_interface.print_message("Neplatný Hall_id: Musí to být kladné celé číslo.")
         except ScreeningDateValueError:
-            print("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")
+            self.table_user_interface.print_message("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")
         else:
             self.table_DAO.Save(s)
 
@@ -32,13 +31,13 @@ class ScreeningApplication:
         try:
             s = Screening(Movie_id, Hall_id, Date, id)
         except IDValueError:
-            print("Neplatný ID: musí být kladný číslo")
+            self.table_user_interface.print_message("Neplatný ID: musí být kladný číslo")
         except ScreeningMovieIDValueError:
-            print("Neplatný Movie_id: Musí to být kladné celé číslo.")
+            self.table_user_interface.print_message("Neplatný Movie_id: Musí to být kladné celé číslo.")
         except ScreeningHallIDValueError:
-            print("Neplatný Hall_id: Musí to být kladné celé číslo.")
+            self.table_user_interface.print_message("Neplatný Hall_id: Musí to být kladné celé číslo.")
         except ScreeningDateValueError:
-            print("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")  
+            self.table_user_interface.print_message("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")  
         else:
             self.table_DAO.Update(s)
 
@@ -46,7 +45,7 @@ class ScreeningApplication:
         try:
             id = int(self.table_user_interface.proces_input("ID promítání na smazání: "))
         except ValueError:
-            print("id musí být číslo")
+            self.table_user_interface.print_message("id musí být číslo")
         else:
             self.table_DAO.Delete(id)
     

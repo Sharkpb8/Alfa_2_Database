@@ -7,14 +7,13 @@ class GenreApplication():
         self.table_user_interface = table_user_interface
         self.table_DAO = GenreDAO(self)
 
-    #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
     def SaveGenre(self):
         Name = self.table_user_interface.proces_input("Jmeno žánru: ")
         try:
             g = Genre(Name)
         except GenreNameValueError:
-            print("Neplatný název žánru: Musí být alfanumerický a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatný název žánru: Musí být alfanumerický a do 30 znaků.")
         else:
             self.table_DAO.Save(g)
 
@@ -24,9 +23,9 @@ class GenreApplication():
         try:
             g = Genre(Name,id)
         except IDValueError:
-            print("Neplatný ID: musí být kladný číslo")
+            self.table_user_interface.print_message("Neplatný ID: musí být kladný číslo")
         except GenreNameValueError:
-            print("Neplatný název žánru: Musí být alfanumerický a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatný název žánru: Musí být alfanumerický a do 30 znaků.")
         else:
             self.table_DAO.Update(g)
 
@@ -34,7 +33,7 @@ class GenreApplication():
         try:
             id = int(self.table_user_interface.proces_input("id žánru na smazání: "))
         except ValueError:
-            print("id musí být číslo")
+            self.table_user_interface.print_message("id musí být číslo")
         else:
             self.table_DAO.Delete(id)
     

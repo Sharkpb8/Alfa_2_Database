@@ -7,7 +7,6 @@ class HallApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = HallDAO(self)
 
-    #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
     def SaveHall(self):
         Name = self.table_user_interface.proces_input("Název sálu: ")
@@ -15,9 +14,9 @@ class HallApplication:
         try:
             h = Hall(Name, Type)
         except HallNameValueError:
-            print("Neplatný název haly: Musí být alfanumerický a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatný název haly: Musí být alfanumerický a do 30 znaků.")
         except HallTypeValueError:
-            print("Neplatný typ haly: Musí to být buď 'Standartní' nebo 'VIP'.")
+            self.table_user_interface.print_message("Neplatný typ haly: Musí to být buď 'Standartní' nebo 'VIP'.")
         else:
             self.table_DAO.Save(h)
 
@@ -28,11 +27,11 @@ class HallApplication:
         try:
             h = Hall(Name, Type, id)
         except IDValueError:
-            print("Neplatný ID: musí být kladný číslo")
+            self.table_user_interface.print_message("Neplatný ID: musí být kladný číslo")
         except HallNameValueError:
-            print("Neplatný název haly: Musí být alfanumerický a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatný název haly: Musí být alfanumerický a do 30 znaků.")
         except HallTypeValueError:
-            print("Neplatný typ haly: Musí to být buď 'Standartní' nebo 'VIP'.")
+            self.table_user_interface.print_message("Neplatný typ haly: Musí to být buď 'Standartní' nebo 'VIP'.")
         else:
             self.table_DAO.Update(h)
 
@@ -40,7 +39,7 @@ class HallApplication:
         try:
             id = int(self.table_user_interface.proces_input("ID sálu na smazání: "))
         except ValueError:
-            print("id musí být číslo")
+            self.table_user_interface.print_message("id musí být číslo")
         else:
             self.table_DAO.Delete(id)
     

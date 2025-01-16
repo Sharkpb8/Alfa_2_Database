@@ -7,7 +7,6 @@ class CustomerApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = CustomerDAO(self)
 
-    #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
     def SaveCustomer(self):
         Name = self.table_user_interface.proces_input("Jméno zákazníka")
@@ -20,15 +19,15 @@ class CustomerApplication:
         try:
             c = Customer(Name,Last_name,loyalty_program,loyalty_points,Registry_date)
         except NameValueError:
-            print("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
         except LastNameValueError:
-            print("Neplatné příjmení: Musí být alfanumerické a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatné příjmení: Musí být alfanumerické a do 30 znaků.")
         except LoyaltyProgramValueError:
-            print("Neplatný věrnostní program: Musí být buď 1 (True) nebo 0 (False).")
+            self.table_user_interface.print_message("Neplatný věrnostní program: Musí být buď 1 (True) nebo 0 (False).")
         except LoyaltyPointsValueError:
-            print("Neplatné počet věrnostních bodů: Musí to být kladné desetinné číslo.")
+            self.table_user_interface.print_message("Neplatné počet věrnostních bodů: Musí to být kladné desetinné číslo.")
         except RegistryDateValueError:
-            print("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
+            self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
             self.table_DAO.Save(c)
 
@@ -46,17 +45,17 @@ class CustomerApplication:
         try:
             c = Customer(id, Name, Last_name, loyalty_program, loyalty_points,Registry_date)
         except IDValueError:
-            print("Neplatný ID: musí být kladný číslo")
+            self.table_user_interface.print_message("Neplatný ID: musí být kladný číslo")
         except NameValueError:
-            print("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
         except LastNameValueError:
-            print("Neplatné příjmení: Musí být alfanumerické a do 30 znaků.")
+            self.table_user_interface.print_message("Neplatné příjmení: Musí být alfanumerické a do 30 znaků.")
         except LoyaltyProgramValueError:
-            print("Neplatný věrnostní program: Musí být buď 1 (True) nebo 0 (False).")
+            self.table_user_interface.print_message("Neplatný věrnostní program: Musí být buď 1 (True) nebo 0 (False).")
         except LoyaltyPointsValueError:
-            print("Neplatné počet věrnostních bodů: Musí to být kladné číslo.")
+            self.table_user_interface.print_message("Neplatné počet věrnostních bodů: Musí to být kladné číslo.")
         except RegistryDateValueError:
-            print("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
+            self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
             self.table_DAO.Update(c)
 
@@ -64,7 +63,7 @@ class CustomerApplication:
         try:
             id = int(self.table_user_interface.proces_input("ID zákazníka na smazání: "))
         except ValueError:
-            print("id musí být číslo")
+            self.table_user_interface.print_message("id musí být číslo")
         else:
             self.table_DAO.Delete(id)
     
