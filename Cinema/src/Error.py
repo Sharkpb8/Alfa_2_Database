@@ -37,3 +37,11 @@ class HallNameValueError(Exception):
     pass
 class HallTypeValueError(Exception):
     pass
+
+#errors for Screening
+class ScreeningMovieIDValueError(Exception):
+    pass
+class ScreeningHallIDValueError(Exception):
+    pass
+class ScreeningDateValueError(Exception):
+    pass
