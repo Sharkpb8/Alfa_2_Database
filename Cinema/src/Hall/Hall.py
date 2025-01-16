@@ -3,7 +3,7 @@ from src.Error import *
 
 class Hall:
     def __init__(self, Name, Type, id=0):
-        if not NumberCheck(id,decimal=False ,negative=False):
+        if not NumberCheck(str(id),decimal=False ,negative=False):
             raise IDValueError
         self.id = int(id)
 

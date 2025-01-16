@@ -4,7 +4,7 @@ from src.Error import *
 class Customer:
     def __init__(self,Name,Last_name,loyalty_program,loyalty_points,Registry_date,id = 0):
 
-        if not NumberCheck(id,decimal=False ,negative=False):
+        if not NumberCheck(str(id),decimal=False ,negative=False):
             raise IDValueError
         self.id = int(id)
 
@@ -20,11 +20,11 @@ class Customer:
             raise LoyaltyProgramValueError
         self.Loyalty_program = loyalty_program
 
-        if not NumberCheck(loyalty_points, 10, negative=False):
+        if not NumberCheck(str(loyalty_points), 10, negative=False):
             raise LoyaltyPointsValueError
         self.Loyalty_points = float(loyalty_points)
 
-        if not DateCheck(Registry_date, specialchar="-"):
+        if not DateCheck(str(Registry_date), specialchar="-"):
             raise RegistryDateValueError
         self.Registry_date = Registry_date
     

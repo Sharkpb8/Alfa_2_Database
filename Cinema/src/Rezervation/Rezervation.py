@@ -4,23 +4,23 @@ from src.Error import *
 class Rezervation:
     def __init__(self, Customer_id, Screening_id, Date, Ticket_amount, Total_price = 0, id=0):
 
-        if not NumberCheck(id,decimal=False ,negative=False):
+        if not NumberCheck(str(id),decimal=False ,negative=False):
             raise IDValueError
         self.id = int(id)
 
-        if not NumberCheck(Customer_id,decimal=False , negative=False):
+        if not NumberCheck(str(Customer_id),decimal=False , negative=False):
             raise RezervationCustomerIDValueError
         self.Customer_id = int(Customer_id)
 
-        if not NumberCheck(Screening_id,decimal=False , negative=False):
+        if not NumberCheck(str(Screening_id),decimal=False , negative=False):
             raise RezervationScreeningIDValueError
         self.Screening_id = int(Screening_id)
 
-        if not DateCheck(Date, specialchar="-"):
+        if not DateCheck(str(Date), specialchar="-"):
             raise RezervationDateValueError
         self.Date = Date
 
-        if not NumberCheck(Ticket_amount, decimal=False, negative=False):
+        if not NumberCheck(str(Ticket_amount), decimal=False, negative=False):
             raise RezervationTicketAmountValueError
         self.Ticket_amount = int(Ticket_amount)
 
