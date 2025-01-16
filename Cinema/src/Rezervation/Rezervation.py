@@ -6,27 +6,27 @@ class Rezervation:
 
         if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
-        self.id = id
+        self.id = int(id)
 
         if not NumberCheck(Customer_id,decimal=False , negative=False):
             raise RezervationCustomerIDValueError
-        self.Customer_id = Customer_id
+        self.Customer_id = int(Customer_id)
 
         if not NumberCheck(Screening_id,decimal=False , negative=False):
             raise RezervationScreeningIDValueError
-        self.Screening_id = Screening_id
+        self.Screening_id = int(Screening_id)
 
         if not DateCheck(Date, specialchar="-"):
             raise RezervationDateValueError
         self.Date = Date
 
-        if not NumberCheck(str(Ticket_amount), decimal=False, negative=False):
+        if not NumberCheck(Ticket_amount, decimal=False, negative=False):
             raise RezervationTicketAmountValueError
-        self.Ticket_amount = Ticket_amount
+        self.Ticket_amount = int(Ticket_amount)
 
         if not NumberCheck(str(Total_price), 10, negative=False):
             raise RezervationTotalPriceValueError
-        self.Total_price = Total_price
+        self.Total_price = float(Total_price)
 
     def __str__(self):
         return (f"ID: {self.id}, ID Zákazníka: {self.Customer_id}, ID Promítání: {self.Screening_id}, Datum nákupu: {self.Date}, Množstvý lístků: {self.Ticket_amount}, Celková cena: {self.Total_price}")

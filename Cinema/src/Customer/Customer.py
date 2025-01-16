@@ -6,7 +6,7 @@ class Customer:
 
         if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
-        self.id = id
+        self.id = int(id)
 
         if not StringCheck(Name, 30):
             raise NameValueError
@@ -22,7 +22,7 @@ class Customer:
 
         if not NumberCheck(loyalty_points, 10, negative=False):
             raise LoyaltyPointsValueError
-        self.Loyalty_points = loyalty_points
+        self.Loyalty_points = float(loyalty_points)
 
         if not DateCheck(Registry_date, specialchar="-"):
             raise RegistryDateValueError

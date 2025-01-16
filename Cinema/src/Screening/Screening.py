@@ -6,15 +6,15 @@ class Screening:
 
         if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
-        self.id = id
+        self.id = int(id)
 
         if not NumberCheck(Movie_id,decimal=False , negative=False):
             raise ScreeningMovieIDValueError
-        self.Movie_id = Movie_id
+        self.Movie_id = int(Movie_id)
 
         if not NumberCheck(Hall_id,decimal=False , negative=False):
             raise ScreeningHallIDValueError
-        self.Hall_id = Hall_id
+        self.Hall_id = int(Hall_id)
 
         if not DateCheck(Date, specialchar=" "):
             raise ScreeningDateValueError

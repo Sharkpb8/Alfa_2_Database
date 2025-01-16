@@ -7,10 +7,8 @@ class MovieApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = MovieDAO(self)
 
-    #add val function
     #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
-    #dont convert types here but in class
     def SaveMovie(self):
         Genre_id = self.table_user_interface.proces_input("ID žánru: ")
         Name = self.table_user_interface.proces_input("Název filmu: ")

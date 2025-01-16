@@ -7,18 +7,16 @@ class CustomerApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = CustomerDAO(self)
 
-    #add val function
     #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
-    #dont convert types here but in class
     def SaveCustomer(self):
         Name = self.table_user_interface.proces_input("Jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Příjmení zákazníka")
         Registry_date = self.table_user_interface.proces_input("Den registrace (YYYY-MM-DD)")
-        loyalty_program = int(self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)"))
+        loyalty_program = self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)")
         loyalty_points = 0
-        if(loyalty_program == 1):
-            loyalty_points = float(self.table_user_interface.proces_input("Počet věrnostních bodů"))
+        if(loyalty_program == "1"):
+            loyalty_points = self.table_user_interface.proces_input("Počet věrnostních bodů")
         try:
             c = Customer(Name,Last_name,loyalty_program,loyalty_points,Registry_date)
         except NameValueError:
@@ -39,10 +37,10 @@ class CustomerApplication:
         Name = self.table_user_interface.proces_input("Nové jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Nové příjmení zákazníka")
         Registry_date = self.table_user_interface.proces_input("Nový den registrace (YYYY-MM-DD)")
-        loyalty_program = int(self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)"))
+        loyalty_program = self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)")
         loyalty_points = 0
-        if(loyalty_program == 1):
-            loyalty_points = float(self.table_user_interface.proces_input("Nový počet věrnostních bodů"))
+        if(loyalty_program == "1"):
+            loyalty_points = self.table_user_interface.proces_input("Nový počet věrnostních bodů")
         else:
             loyalty_points = self.table_DAO.Get_Customer_point(id)
         try:

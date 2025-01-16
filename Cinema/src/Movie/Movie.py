@@ -6,11 +6,11 @@ class Movie:
 
         if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
-        self.id = id
+        self.id = int(id)
 
         if not NumberCheck(Genre_id,decimal=False , negative=False):
             raise GenreIDValueError
-        self.Genre_id = Genre_id
+        self.Genre_id = int(Genre_id)
 
         if not StringCheck(Name, 50):
             raise MovieNameValueError
@@ -18,11 +18,11 @@ class Movie:
 
         if not NumberCheck(str(Length),decimal=False, negative=False):
             raise MovieLengthValueError
-        self.Length = Length
+        self.Length = int(Length)
 
         if not NumberCheck(str(Price), 10, negative=False):
             raise MoviePriceValueError
-        self.Price = Price
+        self.Price = float(Price)
 
         if Premiere_date and not DateCheck(Premiere_date, specialchar="-"):
             raise MoviePremiereDateValueError

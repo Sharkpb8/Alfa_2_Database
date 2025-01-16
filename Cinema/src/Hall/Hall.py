@@ -5,7 +5,7 @@ class Hall:
     def __init__(self, Name, Type, id=0):
         if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
-        self.id = id
+        self.id = int(id)
 
         if not StringCheck(Name, 30):
             raise HallNameValueError
