@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+import math
 
 def StringCheck(value,lenght,specialchar = None):
     if(len(value)>lenght):
@@ -10,12 +11,14 @@ def StringCheck(value,lenght,specialchar = None):
         return False
     return True
 
-def NumberCheck(value,lenght,specialchar = None):
+def NumberCheck(value,lenght = math.inf,specialchar = None,negative = True):
     if(len(value)>lenght):
         return False
-    if(not re.findall(r"^[0-9]*$",value)):
+    if(not re.findall(r"^[-0-9]*$",value)):
         return False
     if specialchar and re.search(re.escape(specialchar), value):
+        return False
+    if(negative == False and float(value) <0):
         return False
     return True
 
@@ -29,8 +32,8 @@ def DateCheck(value,specialchar = "-"):
     else:
         return True
     
-def BoolCheck(value,true):
-    if value == true:
+def BoolCheck(value,true,false):
+    if value == true or value == false:
         return True
     else:
         return False
@@ -50,7 +53,7 @@ def TimeCheck(value):
         return True
 
 # print(StringCheck("asdasd54e",50,"/"))
-# print(NumberCheck("500505",50,"."))
+# print(NumberCheck("-500505",50,".",False))
 # print(DateCheck("2024/12/19","/"))
 # print(BoolCheck("ano","ano"))
 # print(EnumCheck("ano",["ano","ne","mozna"]))
