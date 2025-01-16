@@ -4,11 +4,11 @@ from Error import *
 class Movie:
     def __init__(self, Genre_id, Name, Length, Price, Premiere_date, id=0):
 
-        if not NumberCheck(id,negative=False):
+        if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
         self.id = id
 
-        if not NumberCheck(Genre_id, specialchar=None, negative=False):
+        if not NumberCheck(Genre_id,decimal=False , negative=False):
             raise GenreIDValueError
         self.Genre_id = Genre_id
 
@@ -16,11 +16,11 @@ class Movie:
             raise MovieNameValueError
         self.Name = Name
 
-        if not NumberCheck(str(Length), specialchar=None, negative=False):
+        if not NumberCheck(str(Length),decimal=False, negative=False):
             raise MovieLengthValueError
         self.Length = Length
 
-        if not NumberCheck(str(Price), 10, specialchar=None, negative=False):
+        if not NumberCheck(str(Price), 10, negative=False):
             raise MoviePriceValueError
         self.Price = Price
 

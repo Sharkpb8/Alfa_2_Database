@@ -11,14 +11,17 @@ def StringCheck(value,lenght,specialchar = None):
         return False
     return True
 
-def NumberCheck(value,lenght = math.inf,specialchar = None,negative = True):
+def NumberCheck(value,lenght = math.inf,decimal = True,negative = True):
     if(len(value)>lenght):
         return False
-    if(not re.findall(r"^[-0-9]*$",value)):
+    try:
+        float_value = float(value)
+        if(not decimal):
+            if("." in value):
+                raise ValueError
+    except ValueError:
         return False
-    if specialchar and re.search(re.escape(specialchar), value):
-        return False
-    if(negative == False and float(value) <0):
+    if(not negative and float(value) <0):
         return False
     return True
 
@@ -53,7 +56,7 @@ def TimeCheck(value):
         return True
 
 # print(StringCheck("asdasd54e",50,"/"))
-# print(NumberCheck("-500505",50,".",False))
+# print(NumberCheck("-500505.0",50,True,False))
 # print(DateCheck("2024/12/19","/"))
 # print(BoolCheck("ano","ano"))
 # print(EnumCheck("ano",["ano","ne","mozna"]))

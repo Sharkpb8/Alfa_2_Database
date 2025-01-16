@@ -4,15 +4,15 @@ from Error import *
 class Rezervation:
     def __init__(self, Customer_id, Screening_id, Date, Ticket_amount, Total_price = 0, id=0):
 
-        if not NumberCheck(id,negative=False):
+        if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
         self.id = id
 
-        if not NumberCheck(Customer_id, specialchar=None, negative=False):
+        if not NumberCheck(Customer_id,decimal=False , negative=False):
             raise RezervationCustomerIDValueError
         self.Customer_id = Customer_id
 
-        if not NumberCheck(Screening_id, specialchar=None, negative=False):
+        if not NumberCheck(Screening_id,decimal=False , negative=False):
             raise RezervationScreeningIDValueError
         self.Screening_id = Screening_id
 
@@ -20,11 +20,11 @@ class Rezervation:
             raise RezervationDateValueError
         self.Date = Date
 
-        if not NumberCheck(str(Ticket_amount), specialchar=None, negative=False):
+        if not NumberCheck(str(Ticket_amount), decimal=False, negative=False):
             raise RezervationTicketAmountValueError
         self.Ticket_amount = Ticket_amount
 
-        if not NumberCheck(str(Total_price), 10, specialchar=None, negative=False):
+        if not NumberCheck(str(Total_price), 10, negative=False):
             raise RezervationTotalPriceValueError
         self.Total_price = Total_price
 

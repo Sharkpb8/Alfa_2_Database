@@ -10,6 +10,7 @@ class HallApplication:
     #add val function
     #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
+    #dont convert types here but in class
     def SaveHall(self):
         Name = self.table_user_interface.proces_input("Název sálu: ")
         Type = self.table_user_interface.proces_input("Typ sálu (Standartní/VIP): ")

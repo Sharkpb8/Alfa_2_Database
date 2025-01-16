@@ -4,12 +4,12 @@ from Error import *
 class Genre:
     def __init__(self, Name, id=0):
 
-        if not NumberCheck(id,negative=False):
+        if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
         self.id = id
 
         if not StringCheck(Name, 30):
-            raise GenreNameValueError("Neplatný název žánru: Musí být alfanumerický a do 30 znaků.")
+            raise GenreNameValueError
         self.Name = Name
 
     def __str__(self):

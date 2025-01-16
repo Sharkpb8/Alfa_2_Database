@@ -4,7 +4,7 @@ from Error import *
 class Customer:
     def __init__(self,Name,Last_name,loyalty_program,loyalty_points,Registry_date,id = 0):
 
-        if not NumberCheck(id,negative=False):
+        if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
         self.id = id
 

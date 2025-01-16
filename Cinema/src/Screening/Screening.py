@@ -4,15 +4,15 @@ from Error import *
 class Screening:
     def __init__(self, Movie_id, Hall_id, Date, id=0):
 
-        if not NumberCheck(id,negative=False):
+        if not NumberCheck(id,decimal=False ,negative=False):
             raise IDValueError
         self.id = id
 
-        if not NumberCheck(Movie_id, specialchar=None, negative=False):
+        if not NumberCheck(Movie_id,decimal=False , negative=False):
             raise ScreeningMovieIDValueError
         self.Movie_id = Movie_id
 
-        if not NumberCheck(Hall_id, specialchar=None, negative=False):
+        if not NumberCheck(Hall_id,decimal=False , negative=False):
             raise ScreeningHallIDValueError
         self.Hall_id = Hall_id
 

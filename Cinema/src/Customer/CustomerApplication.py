@@ -10,6 +10,7 @@ class CustomerApplication:
     #add val function
     #send message with self.table_user_interface.print_message(message)
     #load from json by loading customers to list and than sending that instead of both at same time
+    #dont convert types here but in class
     def SaveCustomer(self):
         Name = self.table_user_interface.proces_input("Jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Příjmení zákazníka")
