@@ -1,4 +1,5 @@
 from src.Movie.MovieDAO import MovieDAO
+from src.Movie.Movie import Movie
 
 class MovieApplication:
 
@@ -12,7 +13,8 @@ class MovieApplication:
         Length = self.table_user_interface.proces_input("Délka filmu (v minutách): ")
         Price = self.table_user_interface.proces_input("Cena: ")
         Premiere_date = self.table_user_interface.proces_input("Datum premiéry (YYYY-MM-DD): ")
-        self.table_DAO.Save(Genre_id, Name, Length, Price, Premiere_date)
+        m = Movie(Genre_id,Name,Length,Price,Premiere_date)
+        self.table_DAO.Save(m)
 
     def UpdateMovie(self):
         id = self.table_user_interface.proces_input("ID filmu na úpravu: ")
@@ -21,7 +23,8 @@ class MovieApplication:
         Length = self.table_user_interface.proces_input("Nová délka filmu (v minutách): ")
         Price = self.table_user_interface.proces_input("Nová cena: ")
         Premiere_date = self.table_user_interface.proces_input("Nové datum premiéry (YYYY-MM-DD): ")
-        self.table_DAO.Update(id, Genre_id, Name, Length, Price, Premiere_date)
+        m = Movie(Genre_id,Name,Length,Price,Premiere_date,id)
+        self.table_DAO.Update(m)
 
     def DeleteMovie(self):
         id = self.table_user_interface.proces_input("ID filmu na smazání: ")
@@ -29,7 +32,7 @@ class MovieApplication:
     
     def ReadMovie(self):
         self.table_user_interface.interface.print_line()
-        self.table_DAO.Read()
+        self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadMovie(self):
         self.table_DAO.Load()

@@ -1,13 +1,14 @@
 from src.DatabaseSingleton import *
+from src.Movie.Movie import Movie
 
 class MovieDAO:
 
     def __init__(self,table_application):
         self.table_application = table_application
 
-    def Save(self,Genre_id, Name, Length, Price, Premiere_date):
+    def Save(self,m):
         sql = "INSERT INTO Movie(Genre_id, Name, Lenght, Price, Premiere_date)VALUES (%s, %s, %s, %s, %s);"
-        val = [Genre_id, Name, Length, Price, Premiere_date]
+        val = [m.Genre_id, m.Name, m.Length, m.Price, m.Premiere_date]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -21,9 +22,9 @@ class MovieDAO:
         finally:
             DatabaseSingleton.close_conn()
 
-    def Update(self,id, Genre_id, Name, Length, Price, Premiere_date):
+    def Update(self,m):
         sql = "UPDATE Movie SET Genre_id = %s, Name = %s, Lenght = %s, Price = %s, Premiere_date = %sWHERE id = %s;"
-        val = [Genre_id, Name, Length, Price, Premiere_date, id]
+        val = [m.Genre_id, m.Name, m.Length, m.Price, m.Premiere_date, m.id]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -63,10 +64,14 @@ class MovieDAO:
         except Exception as e:
             print(e)
         else:
+            list = []
             for i in myresult:
-                print(f"ID: {i[0]}, Žánr ID: {i[1]}, Jméno: {i[2]}, Délka: {i[3]} minut, Cena: {i[4]} Kč, Premiéra: {i[5]}")
+                m = Movie(i[1], i[2], i[3], i[4], i[5], i[0])
+                list.append(m)        
         finally:
             DatabaseSingleton.close_conn()
+            if(len(list)>0):
+                return list
 
     def Load(self,data):
         with open("./Cinema/data.json",encoding="utf-8") as f:
