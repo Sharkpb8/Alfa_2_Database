@@ -1,5 +1,5 @@
 from src.Inputs_check import *
-from Error import *
+from src.Error import *
 
 class Hall:
     def __init__(self, Name, Type, id=0):

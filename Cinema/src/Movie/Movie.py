@@ -1,5 +1,5 @@
 from src.Inputs_check import *
-from Error import *
+from src.Error import *
 
 class Movie:
     def __init__(self, Genre_id, Name, Length, Price, Premiere_date, id=0):

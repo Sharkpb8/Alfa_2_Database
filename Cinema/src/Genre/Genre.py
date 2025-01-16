@@ -1,5 +1,5 @@
 from src.Inputs_check import *
-from Error import *
+from src.Error import *
 
 class Genre:
     def __init__(self, Name, id=0):

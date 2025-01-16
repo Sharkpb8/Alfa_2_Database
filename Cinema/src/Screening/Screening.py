@@ -1,5 +1,5 @@
 from src.Inputs_check import *
-from Error import *
+from src.Error import *
 
 class Screening:
     def __init__(self, Movie_id, Hall_id, Date, id=0):

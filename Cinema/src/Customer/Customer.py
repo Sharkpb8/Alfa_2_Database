@@ -1,5 +1,5 @@
 from src.Inputs_check import *
-from Error import *
+from src.Error import *
 
 class Customer:
     def __init__(self,Name,Last_name,loyalty_program,loyalty_points,Registry_date,id = 0):
