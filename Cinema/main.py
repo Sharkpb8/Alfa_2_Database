@@ -1,4 +1,4 @@
-from src.Interface import UserInterface
+from src.UserInterface import UserInterface
 
 if __name__ == "__main__":
     ui = UserInterface()

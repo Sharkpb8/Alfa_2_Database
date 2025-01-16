@@ -1,13 +1,13 @@
 import ast
-from src.Genre.Genre import GenreInterface
-from src.Movie.Movie import MovieInterface
-from src.Hall.Hall import HallInterface
-from src.Screening.Screening import ScreeningInterface
-from src.Customer.Customer import CustomerInterface
-from src.Rezervation.Rezervation import RezervationInterface
-from src.Point.Point import PointInterface
-from src.Report.Report import ReportInterface
-from src.IsolationLevel.IsolationLevel import IsolationLevelInterface
+from src.Genre.GenreInterface import GenreInterface
+from src.Movie.MovieInterface import MovieInterface
+from src.Hall.HallInterface import HallInterface
+from src.Screening.ScreeningInterface import ScreeningInterface
+from src.Customer.CustomerInterface import CustomerInterface
+from src.Rezervation.RezervationInterface import RezervationInterface
+from src.Point.PointInterface import PointInterface
+from src.Report.ReportInterface import ReportInterface
+from src.IsolationLevel.IsolationLevelInterface import IsolationLevelInterface
 
 class UserInterface:
 
