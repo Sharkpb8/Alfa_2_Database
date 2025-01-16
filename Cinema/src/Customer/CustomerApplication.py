@@ -9,6 +9,7 @@ class CustomerApplication:
 
     #add val function
     #send message with self.table_user_interface.print_message(message)
+    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveCustomer(self):
         Name = self.table_user_interface.proces_input("Jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Příjmení zákazníka")
@@ -45,6 +46,8 @@ class CustomerApplication:
             loyalty_points = self.table_DAO.Get_Customer_point(id)
         try:
             c = Customer(id, Name, Last_name, loyalty_program, loyalty_points,Registry_date)
+        except IDValueError:
+            print("Neplatný ID: musí být kladný číslo")
         except NameValueError:
             print("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
         except LastNameValueError:
@@ -52,7 +55,7 @@ class CustomerApplication:
         except LoyaltyProgramValueError:
             print("Neplatný věrnostní program: Musí být buď 1 (True) nebo 0 (False).")
         except LoyaltyPointsValueError:
-            print("Neplatné počet věrnostních bodů: Musí to být kladné desetinné číslo.")
+            print("Neplatné počet věrnostních bodů: Musí to být kladné číslo.")
         except RegistryDateValueError:
             print("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:

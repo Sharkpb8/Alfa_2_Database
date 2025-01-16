@@ -3,6 +3,9 @@ from Error import *
 
 class Customer:
     def __init__(self,Name,Last_name,loyalty_program,loyalty_points,Registry_date,id = 0):
+
+        if not NumberCheck(id,negative=False):
+            raise IDValueError
         self.id = id
 
         if not StringCheck(Name, 30):
@@ -17,7 +20,7 @@ class Customer:
             raise LoyaltyProgramValueError
         self.Loyalty_program = loyalty_program
 
-        if not NumberCheck(loyalty_points, 10, specialchar=None, negative=False):
+        if not NumberCheck(loyalty_points, 10, negative=False):
             raise LoyaltyPointsValueError
         self.Loyalty_points = loyalty_points
 
