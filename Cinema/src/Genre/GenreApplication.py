@@ -1,4 +1,5 @@
 from src.Genre.GenreDAO import GenreDAO
+from src.Genre.Genre import Genre
 
 class GenreApplication():
 
@@ -8,12 +9,14 @@ class GenreApplication():
 
     def SaveGenre(self):
         Name = self.table_user_interface.proces_input("Jmeno žánru: ")
-        self.table_DAO.Save(Name)
+        g = Genre(Name)
+        self.table_DAO.Save(g)
 
     def UpdateGenre(self):
         id = self.table_user_interface.proces_input("id upravovaného žánru: ")
         Name = self.table_user_interface.proces_input("Upravené jmeno žánru: ")
-        self.table_DAO.Update(id,Name)
+        g = Genre(Name,id)
+        self.table_DAO.Update(g)
 
     def DeleteGenre(self):
         id = self.table_user_interface.proces_input("id žánru na smazání: ")
@@ -21,7 +24,7 @@ class GenreApplication():
     
     def ReadGenre(self):
         self.table_user_interface.interface.print_line()
-        self.table_DAO.Read()
+        self.table_user_interface.print_read(self.table_DAO.Read())
     
     def LoadGenre(self):
         self.table_DAO.Load()

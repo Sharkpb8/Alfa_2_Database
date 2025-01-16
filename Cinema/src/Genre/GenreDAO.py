@@ -1,13 +1,14 @@
 from src.DatabaseSingleton import *
+from src.Genre.Genre import Genre
 
 class GenreDAO():
 
     def __init__(self,table_application):
         self.table_application = table_application
 
-    def Save(self,Name):
+    def Save(self,g):
         sql = f"insert into Genre(Name) values(%s);"
-        val = [Name]
+        val = [g.Name]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -21,9 +22,9 @@ class GenreDAO():
         finally:
             DatabaseSingleton.close_conn()
 
-    def Update(self,id,Name):
+    def Update(self,g):
         sql = f"update Genre set Name = %s where id = %s;"
-        val = [Name,id]
+        val = [g.Name,g.id]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
@@ -64,10 +65,14 @@ class GenreDAO():
         except Exception as e:
             print(e)
         else:
+            list = []
             for i in myresult:
-                print(f"ID: {i[0]}, Nazev {i[1]}")
+                g = Genre(i[1], i[0])
+                list.append(g)
         finally:
             DatabaseSingleton.close_conn()
+            if(len(list)>0):
+                return list
         
     def Load(self):
         with open("./Cinema/data.json",encoding="utf-8") as f:
