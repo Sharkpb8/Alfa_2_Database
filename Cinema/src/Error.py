@@ -45,3 +45,15 @@ class ScreeningHallIDValueError(Exception):
     pass
 class ScreeningDateValueError(Exception):
     pass
+
+#errors for Rezervation
+class RezervationCustomerIDValueError(Exception):
+    pass
+class RezervationScreeningIDValueError(Exception):
+    pass
+class RezervationDateValueError(Exception):
+    pass
+class RezervationTicketAmountValueError(Exception):
+    pass
+class RezervationTotalPriceValueError(Exception):
+    pass
