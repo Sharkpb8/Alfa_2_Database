@@ -19,7 +19,7 @@ class CustomerInterface:
     def menu_input(self):
         commands = [
             ("Vložit", self.table_application.SaveCustomer),
-            ("Upravit", self.table_application.UpdateCustomer),
+            ("Upravit", self.phenomen_input),
             ("Smazat", self.table_application.DeleteCustomer),
             ("Číst", self.table_application.ReadCustomer),
             ("načíst ze souboru", self.table_application.LoadCustomer),
@@ -73,3 +73,30 @@ class CustomerInterface:
     def print_read(self,list):
         for i in list:
             print(i)
+    
+    def phenomen_input(self):
+        commands = [
+            ("Dirty reads", 2),
+            ("Dirty writes", 3),
+            ("Žádný", 1),
+        ]
+
+        self.interface.print_line()
+        print("Vyberte operaci:")
+        num = 0
+        for label, action in commands:
+            num += 1
+            print("\t" + str(num) + ". " + label)
+
+        choosen_num = None
+        while choosen_num is None:
+            choosen_num = input("Zadejte číslo příkazu (1-" + str(len(commands)) + "): ").strip()
+            try:
+                choosen_num = int(choosen_num)
+                if not 0 < choosen_num <= len(commands):
+                    raise Exception()
+            except:
+                print("Neplatné zadání musíte zadat číslo mezi 1 až " + str(len(commands)))
+                choosen_num = None
+
+        self.table_application.UpdateCustomer(commands[choosen_num-1][1])

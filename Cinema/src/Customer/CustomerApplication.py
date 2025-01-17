@@ -37,7 +37,7 @@ class CustomerApplication:
                 self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     #need fix check id
-    def UpdateCustomer(self):
+    def UpdateCustomer(self,phenomenon):
         id = self.table_user_interface.proces_input("ID zákazníka na úpravu")
         Name = self.table_user_interface.proces_input("Nové jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Nové příjmení zákazníka")
@@ -71,7 +71,7 @@ class CustomerApplication:
             self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
             try:
-                self.table_DAO.Update(c)
+                self.table_DAO.Update(c,phenomenon)
             except DatabaseError:
                 self.table_user_interface.print_message("Selhalo připojení k databázi")
 

@@ -32,7 +32,7 @@ class CustomerDAO:
             DatabaseSingleton.close_conn()
 
 
-    def Update(self,c,phenomenon = 3):
+    def Update(self,c,phenomenon = 1):
         sql = "UPDATE Customer SET Name = %s, Last_name = %s, Loyalty_program = %s, Loyalty_points = %s WHERE id = %s;"
         val = [c.Name, c.Last_name, c.Loyalty_program, c.Loyalty_points, c.id]
         conn = DatabaseSingleton()
