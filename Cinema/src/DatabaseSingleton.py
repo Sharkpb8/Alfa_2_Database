@@ -7,6 +7,7 @@ class DatabaseSingleton:
     isolation_level = "READ UNCOMMITTED"
     active_connections = []
 
+
     def __new__(cls):
         if not cls.conn:
             cls.new_conn()
@@ -54,7 +55,15 @@ class DatabaseSingleton:
     
     @classmethod
     def set_isolation_level(cls,new_level):
-        cls.isolation_level = new_level
+        with open("./Cinema/appconfig.json","w") as f:
+            config = {"izolation_level":new_level}
+            json.dumps(config)
+
+    @classmethod
+    def readisolationlevel(cls):
+        with open("./Cinema/appconfig.json","r") as f:
+            config = json.load(f)
+            cls.isolation_level= config["izolation_level"]
 
 
 # conn = DatabaseSingleton.new_conn()
