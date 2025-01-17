@@ -48,7 +48,7 @@ def EnumCheck(value,enum):
     
 def TimeCheck(value):
     try:
-        datetime.strptime(value, "%H:%M:%S")
+        datetime.strptime(value, "%H:%M")
     except ValueError:
         return False
     else:

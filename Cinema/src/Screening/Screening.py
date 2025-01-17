@@ -16,7 +16,10 @@ class Screening:
             raise ScreeningHallIDValueError
         self.Hall_id = int(Hall_id)
 
-        if not DateCheck(str(Date), specialchar=" "):
+        parsedate = Date.split(" ")
+        if not DateCheck(str(parsedate[0])):
+            raise ScreeningDateValueError
+        if not TimeCheck(str(parsedate[1])):
             raise ScreeningDateValueError
         self.Date = Date
 
