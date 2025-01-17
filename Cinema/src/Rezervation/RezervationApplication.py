@@ -1,5 +1,6 @@
 from src.Rezervation.RezervationDAO import RezervationDAO
 from src.Rezervation.Rezervation import *
+from mysql.connector.errors import *
 
 class RezervationApplication:
 
@@ -25,7 +26,10 @@ class RezervationApplication:
         except RezervationTotalPriceValueError:
             self.table_user_interface.print_message("Neplatná celková cena: Musí to být kladné desetinné číslo.")
         else:
-            self.table_DAO.Save(r)
+            try:
+                self.table_DAO.Save(r)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def UpdateReservation(self):
         id = self.table_user_interface.proces_input("ID rezervace na úpravu: ")
@@ -48,7 +52,10 @@ class RezervationApplication:
         except RezervationTotalPriceValueError:
             self.table_user_interface.print_message("Neplatná celková cena: Musí to být kladné desetinné číslo.")
         else:
-            self.table_DAO.Update(r)
+            try:
+                self.table_DAO.Update(r)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def DeleteReservation(self):
         try:
@@ -56,11 +63,17 @@ class RezervationApplication:
         except ValueError:
             self.table_user_interface.print_message("id musí být číslo")
         else:
-            self.table_DAO.Delete(id)
+            try:
+                self.table_DAO.Delete(id)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
     
     def ReadReservation(self):
         self.table_user_interface.interface.print_line()
-        self.table_user_interface.print_read(self.table_DAO.Read())
+        try:
+            self.table_user_interface.print_read(self.table_DAO.Read())
+        except DatabaseError:
+            self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def LoadReservation(self):
         try:
@@ -76,5 +89,8 @@ class RezervationApplication:
         except RezervationTotalPriceValueError:
             self.table_user_interface.print_message("Neplatná celková cena: Musí to být kladné desetinné číslo.")
         else:
-            for i in list:
-                self.table_DAO.Save(i)
+            try:
+                for i in list:
+                    self.table_DAO.Save(i)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")

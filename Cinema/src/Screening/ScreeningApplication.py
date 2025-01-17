@@ -1,5 +1,6 @@
 from src.Screening.ScreeningDAO import ScreeningDAO
 from src.Screening.Screening import *
+from mysql.connector.errors import *
 
 class ScreeningApplication:
 
@@ -20,7 +21,10 @@ class ScreeningApplication:
         except ScreeningDateValueError:
             self.table_user_interface.print_message("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")
         else:
-            self.table_DAO.Save(s)
+            try:
+                self.table_DAO.Save(s)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def UpdateScreening(self):
         id = self.table_user_interface.proces_input("ID promítání na úpravu: ")
@@ -38,7 +42,10 @@ class ScreeningApplication:
         except ScreeningDateValueError:
             self.table_user_interface.print_message("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")  
         else:
-            self.table_DAO.Update(s)
+            try:
+                self.table_DAO.Update(s)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def DeleteScreening(self):
         try:
@@ -46,11 +53,17 @@ class ScreeningApplication:
         except ValueError:
             self.table_user_interface.print_message("id musí být číslo")
         else:
-            self.table_DAO.Delete(id)
+            try:
+                self.table_DAO.Delete(id)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
     
     def ReadScreening(self):
         self.table_user_interface.interface.print_line()
-        self.table_user_interface.print_read(self.table_DAO.Read())
+        try:
+            self.table_user_interface.print_read(self.table_DAO.Read())
+        except DatabaseError:
+            self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def LoadScreening(self):
         try:
@@ -62,5 +75,8 @@ class ScreeningApplication:
         except ScreeningDateValueError:
             self.table_user_interface.print_message("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")
         else:
-            for i in list:
-                self.table_DAO.Save(i)
+            try:
+                for i in list:
+                    self.table_DAO.Save(i)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")

@@ -1,5 +1,6 @@
 from src.Movie.MovieDAO import MovieDAO
 from src.Movie.Movie import *
+from mysql.connector.errors import *
 
 class MovieApplication:
 
@@ -26,7 +27,10 @@ class MovieApplication:
         except MoviePremiereDateValueError:
             self.table_user_interface.print_message("Neplatné premiérové datum: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
-            self.table_DAO.Save(m)
+            try:
+                self.table_DAO.Save(m)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def UpdateMovie(self):
         id = self.table_user_interface.proces_input("ID filmu na úpravu: ")
@@ -50,7 +54,10 @@ class MovieApplication:
         except MoviePremiereDateValueError:
             self.table_user_interface.print_message("Neplatné premiérové datum: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
-            self.table_DAO.Update(m)
+            try:
+                self.table_DAO.Update(m)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def DeleteMovie(self):
         try:
@@ -58,11 +65,17 @@ class MovieApplication:
         except ValueError:
             self.table_user_interface.print_message("id musí být číslo")
         else:
-            self.table_DAO.Delete(id)
+            try:
+                self.table_DAO.Delete(id)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
     
     def ReadMovie(self):
         self.table_user_interface.interface.print_line()
-        self.table_user_interface.print_read(self.table_DAO.Read())
+        try:
+            self.table_user_interface.print_read(self.table_DAO.Read())
+        except DatabaseError:
+            self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def LoadMovie(self):
         try:
@@ -78,5 +91,8 @@ class MovieApplication:
         except MoviePremiereDateValueError:
             self.table_user_interface.print_message("Neplatné premiérové datum: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
-            for i in list:
-                self.table_DAO.Save(i)
+            try:
+                for i in list:
+                    self.table_DAO.Save(i)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")

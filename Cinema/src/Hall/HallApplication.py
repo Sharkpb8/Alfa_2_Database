@@ -1,5 +1,6 @@
 from src.Hall.HallDAO import HallDAO
 from src.Hall.Hall import *
+from mysql.connector.errors import *
 
 class HallApplication:
 
@@ -44,7 +45,10 @@ class HallApplication:
     
     def ReadHall(self):
         self.table_user_interface.interface.print_line()
-        self.table_user_interface.print_read(self.table_DAO.Read())
+        try:
+            self.table_user_interface.print_read(self.table_DAO.Read())
+        except DatabaseError:
+            self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def LoadHall(self):
         try:
@@ -54,5 +58,8 @@ class HallApplication:
         except HallTypeValueError:
             self.table_user_interface.print_message("Neplatný typ haly: Musí to být buď 'Standartní' nebo 'VIP'.")
         else:
-            for i in list:
-                self.table_DAO.Save(i)
+            try:
+                for i in list:
+                    self.table_DAO.Save(i)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")

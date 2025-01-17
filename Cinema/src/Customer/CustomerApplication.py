@@ -1,5 +1,6 @@
 from src.Customer.CustomerDAO import CustomerDAO
 from src.Customer.Customer import *
+from mysql.connector.errors import *
 
 class CustomerApplication:
 
@@ -30,7 +31,10 @@ class CustomerApplication:
         except RegistryDateValueError:
             self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
-            self.table_DAO.Save(c)
+            try:
+                self.table_DAO.Save(c)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def UpdateCustomer(self):
         id = self.table_user_interface.proces_input("ID zákazníka na úpravu")
@@ -59,7 +63,10 @@ class CustomerApplication:
         except RegistryDateValueError:
             self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
-            self.table_DAO.Update(c)
+            try:
+                self.table_DAO.Update(c)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def DeleteCustomer(self):
         try:
@@ -67,11 +74,17 @@ class CustomerApplication:
         except ValueError:
             self.table_user_interface.print_message("id musí být číslo")
         else:
-            self.table_DAO.Delete(id)
+            try:
+                self.table_DAO.Delete(id)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
     
     def ReadCustomer(self):
         self.table_user_interface.interface.print_line()
-        self.table_user_interface.print_read(self.table_DAO.Read())
+        try:
+            self.table_user_interface.print_read(self.table_DAO.Read())
+        except DatabaseError:
+            self.table_user_interface.print_message("Selhalo připojení k databázi")
 
     def LoadCustomer(self):
         try:
@@ -87,8 +100,11 @@ class CustomerApplication:
         except RegistryDateValueError:
             self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
         else:
-            for i in list:
-                self.table_DAO.Save(i)
+            try:
+                for i in list:
+                    self.table_DAO.Save(i)
+            except DatabaseError:
+                self.table_user_interface.print_message("Selhalo připojení k databázi")
     
     def confirmationCustomer(self):
         return self.table_user_interface.confirmation()
