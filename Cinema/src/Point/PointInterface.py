@@ -21,7 +21,6 @@ class PointInterface:
             ("Převést body",self.table_application.TransferPoints),
             ("Výpis transakcí bodů daného zákazníka",self.table_application.Transaction_by_id_Points ),
             ("Výpis všech transakcí bodů",self.table_application.ReadPoints ),
-            ("Načíst historii transakcí ze souboru",self.table_application.LoadPoints ),
             ("Ukončit program",self.terminate )
         ]
 
