@@ -46,7 +46,13 @@ class CustomerApplication:
         if(loyalty_program == "1"):
             loyalty_points = self.table_user_interface.proces_input("Nový počet věrnostních bodů")
         else:
-            loyalty_points = self.table_DAO.Get_Customer_point(id)
+            loyalty_points = 0
+            try:
+                int(id)
+            except ValueError:
+                id = "id"
+            else:
+                loyalty_points = self.table_DAO.Get_Customer_point(id)
         try:
             if(loyalty_program not in ["0","1"]):
                 raise LoyaltyPointsValueError
