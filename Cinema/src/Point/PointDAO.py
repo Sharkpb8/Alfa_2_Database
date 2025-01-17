@@ -6,7 +6,7 @@ class PointDAO:
         self.table_application = table_application
 
     def Save(self,Customer_id,ammount,description):
-        sql = "insert into Loyalty_points_transactions(Customer_id,ammount,description) values(%s,%s,%s);"
+        sql = "insert into Points(Customer_id,ammount,description) values(%s,%s,%s);"
         val = [Customer_id,ammount,description]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
@@ -38,7 +38,7 @@ class PointDAO:
             DatabaseSingleton.close_conn()
 
     def Transaction_by_id(self,id):
-        sql = "select id,ammount,description from Loyalty_points_transactions where Customer_id = %s"
+        sql = "select id,ammount,description from Points where Customer_id = %s"
         val = [id]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
@@ -54,7 +54,7 @@ class PointDAO:
             DatabaseSingleton.close_conn()
     
     def Read(self):
-        sql = "select * from Loyalty_points_transactions"
+        sql = "select * from Points"
         val = []
         conn = DatabaseSingleton()
         cursor = conn.cursor()
