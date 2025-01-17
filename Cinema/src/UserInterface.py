@@ -38,13 +38,13 @@ class UserInterface:
 
     def new_input(self,message):
         self.print_line()
-        new_task = None
-        while (new_task == None):
-            new_task = input(f"{message}: ").strip()
-            if (len(new_task) < 1):
+        new_input = None
+        while (new_input == None):
+            new_input = input(f"{message}: ").strip()
+            if (len(new_input) < 1):
                 print("Neplatné zadání musíte zadat nějaký text")
-                new_task = None
-        return self.convert_input(new_task)
+                new_input = None
+        return new_input
 
     def menu_input(self):
         commands = [
@@ -82,18 +82,3 @@ class UserInterface:
     
     def terminate(self):
         self.isrunning = False
-
-    def convert_input(self,value):
-        """
-        Tries to convert a string input into a Python literal (e.g., int, float, list, etc.).
-        If conversion fails, returns the original string.
-
-        :param value: The input string to be evaluated.
-        :type value: str
-        :return: The converted value or the original string if conversion fails.
-        :rtype: any
-        """
-        try:
-            return ast.literal_eval(value)
-        except (ValueError, SyntaxError):
-            return value

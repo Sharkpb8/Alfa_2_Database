@@ -20,8 +20,6 @@ class CustomerDAO:
             result = self.Get_by_id(id)
             result = result[0]
             self.table_application.print_messageCustomer(f"Vkládané data: Jméno: {result[1]}, Příjmení: {result[2]}, Člen věrnostního programu: {'Ano' if result[3] else 'Ne'}, Body: {result[4]}, Registrace: {result[5]}")
-            if(not self.table_application.confirmationCustomer()):
-                raise Exception
         except Exception as e:
             print(e)
             # print(traceback.format_exc())
@@ -40,6 +38,11 @@ class CustomerDAO:
         try:
             cursor.execute("START TRANSACTION;")
             cursor.execute(sql, val)
+            result = self.Get_by_id(c.id)
+            result = result[0]
+            self.table_application.print_messageCustomer(f"Upravovaná data: Jméno: {result[1]}, Příjmení: {result[2]}, Člen věrnostního programu: {'Ano' if result[3] else 'Ne'}, Body: {result[4]}, Registrace: {result[5]}")
+            if(not self.table_application.confirmationCustomer()):
+                raise Exception
         except Exception as e:
             print(e)
             cursor.execute("ROLLBACK;")

@@ -16,9 +16,9 @@ class Customer:
             raise LastNameValueError
         self.Last_name = Last_name
 
-        if not BoolCheck(loyalty_program, 1, 0):
+        if not BoolCheck(int(loyalty_program), 1, 0):
             raise LoyaltyProgramValueError
-        self.Loyalty_program = loyalty_program
+        self.Loyalty_program = int(loyalty_program)
 
         if not NumberCheck(str(loyalty_points), 10, negative=False):
             raise LoyaltyPointsValueError

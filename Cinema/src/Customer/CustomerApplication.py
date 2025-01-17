@@ -16,6 +16,8 @@ class CustomerApplication:
         if(loyalty_program == "1"):
             loyalty_points = self.table_user_interface.proces_input("Počet věrnostních bodů")
         try:
+            if(loyalty_program not in ["0","1"]):
+                raise LoyaltyPointsValueError
             c = Customer(Name,Last_name,loyalty_program,loyalty_points,Registry_date)
         except NameValueError:
             self.table_user_interface.print_message("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
@@ -36,13 +38,14 @@ class CustomerApplication:
         Last_name = self.table_user_interface.proces_input("Nové příjmení zákazníka")
         Registry_date = self.table_user_interface.proces_input("Nový den registrace (YYYY-MM-DD)")
         loyalty_program = self.table_user_interface.proces_input("Je zákazník členem věrnostního programu? (1 = Ano, 0 = Ne)")
-        loyalty_points = 0
         if(loyalty_program == "1"):
             loyalty_points = self.table_user_interface.proces_input("Nový počet věrnostních bodů")
         else:
             loyalty_points = self.table_DAO.Get_Customer_point(id)
         try:
-            c = Customer(id, Name, Last_name, loyalty_program, loyalty_points,Registry_date)
+            if(loyalty_program not in ["0","1"]):
+                raise LoyaltyPointsValueError
+            c = Customer(Name, Last_name, loyalty_program, loyalty_points,Registry_date,id)
         except IDValueError:
             self.table_user_interface.print_message("Neplatný ID: musí být kladný číslo")
         except NameValueError:
