@@ -4,7 +4,6 @@ import json
 
 class DatabaseSingleton:
     conn = None
-    isolation_level = "READ UNCOMMITTED"
     active_connections = []
 
 
@@ -49,21 +48,21 @@ class DatabaseSingleton:
     
     @classmethod
     def set_session_isolation_level(cls,connection):
-        sql = f"SET SESSION TRANSACTION ISOLATION LEVEL {cls.isolation_level};"
+        sql = f"SET SESSION TRANSACTION ISOLATION LEVEL {cls.readisolationlevel()};"
         cursor = connection.cursor()
         cursor.execute(sql)
     
     @classmethod
     def set_isolation_level(cls,new_level):
-        with open("./Cinema/appconfig.json","w") as f:
+        with open("./Cinema/config.json","w") as f:
             config = {"izolation_level":new_level}
-            json.dumps(config)
+            json.dump(config,f,indent=4)
 
     @classmethod
     def readisolationlevel(cls):
-        with open("./Cinema/appconfig.json","r") as f:
+        with open("./Cinema/config.json","r") as f:
             config = json.load(f)
-            cls.isolation_level= config["izolation_level"]
+            return config["izolation_level"]
 
 
 # conn = DatabaseSingleton.new_conn()

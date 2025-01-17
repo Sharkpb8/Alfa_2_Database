@@ -33,4 +33,4 @@ class IsolationLevelApplication:
         DatabaseSingleton.set_isolation_level(commands[choosen_num-1][1])
     
     def ReadIsolationLevel(self):
-        self.table_user_interface.print_message(f"Aktuální izolační level: {DatabaseSingleton.isolation_level}")
+        self.table_user_interface.print_message(f"Aktuální izolační level: {DatabaseSingleton.readisolationlevel()}")
