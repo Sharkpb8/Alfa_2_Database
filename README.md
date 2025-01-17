@@ -47,9 +47,14 @@ This project is a Cinema Database Manager, built using MySQL for the database an
 
 ### Application Configuration
 - Configuration file: `appconfig.json`.
-- Includes database connection settings (e.g., host, port, user, password, database).
+- Database
+  - `host`: ip address of the DB server
+  - `port`: port address of the DB server
+  - `user`: username for your connection to your DB server
+  - `password`: password for your connection to your DB server
+  - `database`: Name of your database
 - Example of `appconfig.json`:
-```
+```json
 {
     "database":{
         "host":"ip",
@@ -62,20 +67,29 @@ This project is a Cinema Database Manager, built using MySQL for the database an
 ```
 
 ### Transaction Isolation Levels
-- Users can set isolation levels:
+- Users can set isolation levels to:
   - `READ UNCOMMITTED`
   - `READ COMMITTED`
   - `REPEATABLE READ`
   - `SERIALIZABLE`
-- Example scenarios for `Dirty Reads` and `Dirty Writes` are implemented.
+- only with `READ UNCOMMITTED` is `Dirty Reads` possible.
+
+- Example of `config.json`:
+```json
+{
+    "izolation_level": "READ UNCOMMITTED"
+}
+```
 
 ---
 
 ## Installation and Setup
+In IDE enviroment
 1. Clone the repository.
 2. Configure the database connection in `appconfig.json`.
-3. Run the database setup scripts to create the schema.
-4. Execute the application using:
+3. Configure the isolation level `config.json`.
+4. Run the `Cinema.sql` setup scripts to create the database.
+5. Execute the application using:
    ```bash
    python main.py
    ```
@@ -96,42 +110,27 @@ This project is a Cinema Database Manager, built using MySQL for the database an
   - Movie performance summary.
   - Revenue by hall type and genre.
 
-### Example Commands
-- **Modify Isolation Levels**:
-  ```python
-  SetIsolationLevel()
-  ```
-- **Dirty Reads and Writes**:
-  Available in `CustomerDAO` and demonstrated via the interface.
-
 ---
 
 ## Error Handling
-- **Global Errors**: Managed using custom exceptions (e.g., `IDValueError`, `NameValueError`).
-- **Database Connection Errors**: Handled gracefully with rollback mechanisms.
-- **Validation**:
-  - String validation (length, special characters).
-  - Numeric validation (limits, decimals).
-  - Date and Boolean validation.
+- **Errors**: Managed using custom exceptions (all can be found in `Error.py`).
+- **Database errors**: Managed with try except and on succes or failier is commit/rollback executed.
+- **Validation**: All validation checks for the attributes are in `Input_check.py`
 
 ---
 
 ## Dependencies
 - Python libraries:
-  - `mysql-connector`
-  - `ast`
-  - `datetime`
-  - `math`
-  - `re`
+  - `mysql-connector-python`
+  - `pyinstaller`
 - MySQL database.
+- How to install dependencies:
+   ```bash
+   python.exe -m venv venv
+   ./venv/Script/pip.exe -r requirements.txt
+   ```
 
 ---
 
 ## Summary
-This Cinema Database Management System provides a robust and modular solution for managing cinema operations. It ensures data integrity, supports advanced features like loyalty programs, and adheres to high standards of configurability and error handling. The project demonstrates effective use of UML diagrams, transaction isolation levels, and database design principles.
-
----
-
-## Acknowledgments
-- Project guidance by [Your Teacher or Mentor's Name].
-- Tools: MySQL, Python, and UML modeling tools.
+This Cinema Database Management System provides optimal solution for managing cinema operations. It ensures data integrity, supports advanced features like loyalty programs, and adheres to high standards of configurability and error handling.
