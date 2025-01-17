@@ -8,7 +8,7 @@ class Genre:
             raise IDValueError
         self.id = int(id)
 
-        if not StringCheck(Name, 30):
+        if not StringCheck(Name, 30,"-"):
             raise GenreNameValueError
         self.Name = Name
 

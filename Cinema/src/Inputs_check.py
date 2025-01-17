@@ -2,12 +2,11 @@ import re
 from datetime import datetime
 import math
 
-def StringCheck(value,lenght,specialchar = None):
+def StringCheck(value,lenght,specialchar = ""):
     if(len(value)>lenght):
         return False
-    if(not re.findall(r"^[A-Za-z0-9 áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]*$",value)):
-        return False
-    if(specialchar and re.findall(f"{specialchar}",value)):
+    specialchar = re.escape(specialchar)
+    if(not re.findall(rf"^[A-Za-z0-9 áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ{specialchar}]*$",value)):
         return False
     return True
 
