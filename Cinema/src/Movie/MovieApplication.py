@@ -7,7 +7,6 @@ class MovieApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = MovieDAO(self)
 
-    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveMovie(self):
         Genre_id = self.table_user_interface.proces_input("ID žánru: ")
         Name = self.table_user_interface.proces_input("Název filmu: ")
@@ -66,4 +65,18 @@ class MovieApplication:
         self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadMovie(self):
-        self.table_DAO.Load()
+        try:
+            list = self.table_DAO.Load()
+        except GenreIDValueError:
+            self.table_user_interface.print_message("Neplatný Genre_id: Musí to být kladné celé číslo.")
+        except MovieNameValueError:
+            self.table_user_interface.print_message("Neplatný název filmu: Musí být alfanumerický a do 50 znaků.")
+        except MovieLengthValueError:
+            self.table_user_interface.print_message("Neplatná délka filmu: Musí to být kladné celé číslo.")
+        except MoviePriceValueError:
+            self.table_user_interface.print_message("Neplatná cena filmu: Musí to být kladné číslo.")
+        except MoviePremiereDateValueError:
+            self.table_user_interface.print_message("Neplatné premiérové datum: Musí to být platné datum ve formátu YYYY-MM-DD.")
+        else:
+            for i in list:
+                self.table_DAO.Save(i)

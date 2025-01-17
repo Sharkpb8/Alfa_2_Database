@@ -78,5 +78,8 @@ class GenreDAO():
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Genre"]
+            list = []
             for i in data:
-                self.Save(i["Name"])
+                g = Genre(i["Name"])
+                list.append(g)
+            return list

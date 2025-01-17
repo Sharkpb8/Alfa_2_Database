@@ -79,5 +79,8 @@ class RezervationDAO:
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Rezervation"]
+            list = []
             for i in data:
-                self.Save(i["Customer_id"], i["Screening_id"], i["Date"], i["Ticket_ammount"], i["Total_price"])
+                r = Rezervation(i["Customer_id"], i["Screening_id"], i["Date"], i["Ticket_ammount"], i["Total_price"])
+                list.append(r)
+            return list

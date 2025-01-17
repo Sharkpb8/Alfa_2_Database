@@ -7,7 +7,6 @@ class RezervationApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = RezervationDAO(self)
 
-    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveReservation(self):
         Customer_id = self.table_user_interface.proces_input("ID zákazníka: ")
         Screening_id = self.table_user_interface.proces_input("ID projekce: ")
@@ -64,4 +63,18 @@ class RezervationApplication:
         self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadReservation(self):
-        self.table_DAO.Load()
+        try:
+            list = self.table_DAO.Load()
+        except RezervationCustomerIDValueError:
+            self.table_user_interface.print_message("Neplatný Customer_id: Musí to být kladné celé číslo.")
+        except RezervationScreeningIDValueError:
+            self.table_user_interface.print_message("Neplatný Screening_id: Musí to být kladné celé číslo.")
+        except RezervationDateValueError:
+            self.table_user_interface.print_message("Neplatné datum rezervace: Musí to být platné datum ve formátu YYYY-MM-DD.")
+        except RezervationTicketAmountValueError:
+            self.table_user_interface.print_message("Neplatný počet vstupenek: Musí to být kladné celé číslo.")
+        except RezervationTotalPriceValueError:
+            self.table_user_interface.print_message("Neplatná celková cena: Musí to být kladné desetinné číslo.")
+        else:
+            for i in list:
+                self.table_DAO.Save(i)

@@ -77,5 +77,8 @@ class ScreeningDAO:
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Screening"]
+            list = []
             for i in data:
-                self.Save(i["Movie_id"],i["Hall_id"],i["Date"])
+                s = Screening(i["Movie_id"],i["Hall_id"],i["Date"])
+                list.append(s)
+            return list

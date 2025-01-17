@@ -7,7 +7,6 @@ class HallApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = HallDAO(self)
 
-    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveHall(self):
         Name = self.table_user_interface.proces_input("Název sálu: ")
         Type = self.table_user_interface.proces_input("Typ sálu (Standartní/VIP): ")
@@ -48,4 +47,12 @@ class HallApplication:
         self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadHall(self):
-        self.table_DAO.Load()
+        try:
+            list = self.table_DAO.Load()
+        except HallNameValueError:
+            self.table_user_interface.print_message("Neplatný název haly: Musí být alfanumerický a do 30 znaků.")
+        except HallTypeValueError:
+            self.table_user_interface.print_message("Neplatný typ haly: Musí to být buď 'Standartní' nebo 'VIP'.")
+        else:
+            for i in list:
+                self.table_DAO.Save(i)

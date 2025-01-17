@@ -7,7 +7,6 @@ class CustomerApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = CustomerDAO(self)
 
-    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveCustomer(self):
         Name = self.table_user_interface.proces_input("Jméno zákazníka")
         Last_name = self.table_user_interface.proces_input("Příjmení zákazníka")
@@ -72,7 +71,21 @@ class CustomerApplication:
         self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadCustomer(self):
-        self.table_DAO.Load()
+        try:
+            list = self.table_DAO.Load()
+        except NameValueError:
+            self.table_user_interface.print_message("Neplatné jméno: Musí být alfanumerické a do 30 znaků.")
+        except LastNameValueError:
+            self.table_user_interface.print_message("Neplatné příjmení: Musí být alfanumerické a do 30 znaků.")
+        except LoyaltyProgramValueError:
+            self.table_user_interface.print_message("Neplatný věrnostní program: Musí být buď 1 (True) nebo 0 (False).")
+        except LoyaltyPointsValueError:
+            self.table_user_interface.print_message("Neplatné počet věrnostních bodů: Musí to být kladné číslo.")
+        except RegistryDateValueError:
+            self.table_user_interface.print_message("Neplatný Datum registrace: Musí to být platné datum ve formátu YYYY-MM-DD.")
+        else:
+            for i in list:
+                self.table_DAO.Save(i)
     
     def confirmationCustomer(self):
         return self.table_user_interface.confirmation()

@@ -77,5 +77,8 @@ class HallDAO:
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Hall"]
+            list = []
             for i in data:
-                self.Save(i["Name"],i["Type"])
+                h = Hall(i["Name"],i["Type"])
+                list.append(h)
+            return list

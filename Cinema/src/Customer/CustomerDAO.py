@@ -98,12 +98,15 @@ class CustomerDAO:
         finally:
             DatabaseSingleton.close_conn()
 
-    def Load(self,data):
+    def Load(self):
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Customer"]
+            list = []
             for i in data:
-                self.Save(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"])
+                c = Customer(i["Name"],i["Last_name"],i["Loyalty_program"],i["Loyalty_points"],i["Registry_date"])
+                list.append(c)
+            return list
     
     def Get_by_id(self,id):
         sql = "SELECT * FROM Customer where id = %s;"

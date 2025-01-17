@@ -7,7 +7,6 @@ class GenreApplication():
         self.table_user_interface = table_user_interface
         self.table_DAO = GenreDAO(self)
 
-    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveGenre(self):
         Name = self.table_user_interface.proces_input("Jmeno žánru: ")
         try:
@@ -42,4 +41,10 @@ class GenreApplication():
         self.table_user_interface.print_read(self.table_DAO.Read())
     
     def LoadGenre(self):
-        self.table_DAO.Load()
+        try:
+            list = self.table_DAO.Load()
+        except GenreNameValueError:
+            self.table_user_interface.print_message("Neplatný název žánru: Musí být alfanumerický a do 30 znaků.")
+        else:
+            for i in list:
+                self.table_DAO.Save(i)

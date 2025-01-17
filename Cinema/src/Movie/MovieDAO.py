@@ -77,5 +77,8 @@ class MovieDAO:
         with open("./Cinema/data.json",encoding="utf-8") as f:
             data = json.load(f)
             data = data["Movie"]
+            list = []
             for i in data:
-                self.Save(i["Genre_id"],i["Name"],i["Length"],i["Length"],i["Premiere_date"])
+                m = Movie(i["Genre_id"],i["Name"],i["Length"],i["Length"],i["Premiere_date"])
+                list.append(m)
+            return list

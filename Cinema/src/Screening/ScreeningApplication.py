@@ -7,7 +7,6 @@ class ScreeningApplication:
         self.table_user_interface = table_user_interface
         self.table_DAO = ScreeningDAO(self)
 
-    #load from json by loading customers to list and than sending that instead of both at same time
     def SaveScreening(self):
         Movie_id = self.table_user_interface.proces_input("ID filmu: ")
         Hall_id = self.table_user_interface.proces_input("ID sálu: ")
@@ -54,4 +53,14 @@ class ScreeningApplication:
         self.table_user_interface.print_read(self.table_DAO.Read())
 
     def LoadScreening(self):
-        self.table_DAO.Load()
+        try:
+            list = self.table_DAO.Load()
+        except ScreeningMovieIDValueError:
+            self.table_user_interface.print_message("Neplatný Movie_id: Musí to být kladné celé číslo.")
+        except ScreeningHallIDValueError:
+            self.table_user_interface.print_message("Neplatný Hall_id: Musí to být kladné celé číslo.")
+        except ScreeningDateValueError:
+            self.table_user_interface.print_message("Neplatné datum projekce: Musí to být platné datum a čas ve formátu YYYY-MM-DD HH:MM")
+        else:
+            for i in list:
+                self.table_DAO.Save(i)

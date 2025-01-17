@@ -5,7 +5,7 @@ import math
 def StringCheck(value,lenght,specialchar = None):
     if(len(value)>lenght):
         return False
-    if(not re.findall(r"^[A-Za-z0-9 ]*$",value)):
+    if(not re.findall(r"^[A-Za-z0-9 áčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]*$",value)):
         return False
     if(specialchar and re.findall(f"{specialchar}",value)):
         return False
