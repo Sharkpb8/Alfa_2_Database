@@ -36,6 +36,7 @@ class CustomerApplication:
             except DatabaseError:
                 self.table_user_interface.print_message("Selhalo připojení k databázi")
 
+    #need fix check id
     def UpdateCustomer(self):
         id = self.table_user_interface.proces_input("ID zákazníka na úpravu")
         Name = self.table_user_interface.proces_input("Nové jméno zákazníka")

@@ -61,6 +61,15 @@ date date default (curdate()),
 description varchar(50)
 );
 
+create table temp_customer(
+id int primary key,
+Name varchar(30),
+Last_name varchar(30),
+Loyalty_program bit default(0),
+Loyalty_points decimal(10,2),
+Registry_date date  NOT NULL
+);
+
 DELIMITER //
 CREATE PROCEDURE InsertRezervation(IN _Customer_id int,IN _Screening_id int,IN _Date date,IN _Ticket_ammount int)
 BEGIN
@@ -168,5 +177,18 @@ from Rezervation as r inner join Screening as s on r.Screening_id = s.id
                     inner join Genre as g on m.Genre_id = g.id
 					inner join Hall as h on s.Hall_id = h.id 
 group by h.Type,g.Name; //
+
+delimiter //
+create procedure UpdateCustomer(IN _id int)
+begin
+	UPDATE Customer AS c
+	JOIN temp_customer AS t ON t.id = c.id
+	SET c.Name = t.Name,
+		c.Last_name = t.Last_name,
+		c.Loyalty_program = t.Loyalty_program,
+		c.Loyalty_points = t.Loyalty_points,
+		c.Registry_date = t.Registry_date
+	where c.id = _id;
+end; //
 
 COMMIT

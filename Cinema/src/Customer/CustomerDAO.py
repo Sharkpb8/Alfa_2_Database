@@ -1,6 +1,8 @@
 from src.DatabaseSingleton import *
 from src.Customer.Customer import Customer
-# import traceback
+import multiprocessing
+import traceback
+import time
 
 class CustomerDAO:
 
@@ -30,22 +32,36 @@ class CustomerDAO:
             DatabaseSingleton.close_conn()
 
 
-    def Update(self,c):
+    def Update(self,c,phenomenon = 3):
         sql = "UPDATE Customer SET Name = %s, Last_name = %s, Loyalty_program = %s, Loyalty_points = %s WHERE id = %s;"
         val = [c.Name, c.Last_name, c.Loyalty_program, c.Loyalty_points, c.id]
         conn = DatabaseSingleton()
         cursor = conn.cursor()
         try:
-            cursor.execute("START TRANSACTION;")
-            cursor.execute(sql, val)
-            if(DatabaseSingleton.dirtyreads()):
-                result = self.Get_by_id(c.id)
-                result = result[0]
-                self.table_application.print_messageCustomer(f"Upravovaná data: Jméno: {result[1]}, Příjmení: {result[2]}, Člen věrnostního programu: {'Ano' if result[3] else 'Ne'}, Body: {result[4]}, Registrace: {result[5]}")
-                if(not self.table_application.confirmationCustomer()):
-                    raise Exception
+            if(phenomenon == 1 or phenomenon == 2):
+                cursor.execute("START TRANSACTION;")
+                cursor.execute(sql, val)
+                if(DatabaseSingleton.dirtyreads() and phenomenon == 2):
+                    result = self.Get_by_id(c.id)
+                    result = result[0]
+                    self.table_application.print_messageCustomer(f"Upravovaná data: Jméno: {result[1]}, Příjmení: {result[2]}, Člen věrnostního programu: {'Ano' if result[3] else 'Ne'}, Body: {result[4]}, Registrace: {result[5]}")
+                    if(not self.table_application.confirmationCustomer()):
+                        raise Exception
+            elif(phenomenon == 3):
+                sql = "insert into temp_customer select * from Customer where id =%s;"
+                val = [c.id]
+                cursor.execute("START TRANSACTION;")
+                cursor.execute("delete from temp_customer")
+                cursor.execute(sql,val)
+                cursor.execute("COMMIT;")
+                DatabaseSingleton.close_conn(conn)
+                self.dirtywrites(c)
+                conn = DatabaseSingleton()
+                cursor = conn.cursor()
+                cursor.execute("call UpdateCustomer (%s)",val)
         except Exception as e:
             print(e)
+            print(traceback.format_exc())
             cursor.execute("ROLLBACK;")
         else:
             cursor.execute("COMMIT;")
@@ -126,3 +142,35 @@ class CustomerDAO:
             return myresult
         finally:
             DatabaseSingleton.close_conn(conn)
+    
+    def _transaction_a(self,c):
+        conn = DatabaseSingleton()
+        cursor = conn.cursor()
+        cursor.execute("START TRANSACTION;")
+        sql = "UPDATE temp_customer SET Name = %s, Last_name = %s, Loyalty_program = %s, Loyalty_points = %s, Registry_date = %s WHERE id = %s"
+        val = [c.Name, c.Last_name, c.Loyalty_program, c.Loyalty_points, c.Registry_date, c.id]
+        cursor.execute(sql,val)
+        cursor.execute("COMMIT;")
+        DatabaseSingleton.close_conn(conn)
+
+    def _transaction_b(self,id):
+        conn = DatabaseSingleton()
+        cursor = conn.cursor()
+        cursor.execute("START TRANSACTION;")
+        sql = "UPDATE temp_customer SET Name = 'dirty', Last_name = 'write', Loyalty_program = 0, Loyalty_points = 666, Registry_date = '1900-01-01' WHERE id = %s"
+        val = [id]
+        cursor.execute(sql,val)
+        cursor.execute("COMMIT;")
+        DatabaseSingleton.close_conn(conn)
+
+
+    def dirtywrites(self,c):
+        process_a = multiprocessing.Process(target=self._transaction_a,args=(c,))
+        process_b = multiprocessing.Process(target=self._transaction_b,args=(c.id,))
+
+        process_a.start()
+        time.sleep(0.1)
+        process_b.start()
+
+        process_a.join()
+        process_b.join()
