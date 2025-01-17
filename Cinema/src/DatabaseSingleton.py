@@ -63,6 +63,13 @@ class DatabaseSingleton:
         with open("./Cinema/config.json","r") as f:
             config = json.load(f)
             return config["izolation_level"]
+    
+    @classmethod
+    def dirtyreads(cls):
+        if(cls.readisolationlevel() == "READ UNCOMMITTED"):
+            return True
+        else:
+            return False
 
 
 # conn = DatabaseSingleton.new_conn()
