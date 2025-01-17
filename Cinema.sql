@@ -1,3 +1,4 @@
+create database Cinema;
 SET autocommit = OFF;
 use Cinema;
 start transaction;

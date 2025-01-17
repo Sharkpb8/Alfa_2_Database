@@ -94,7 +94,17 @@ In IDE enviroment
    python main.py
    ```
 
----
+---  
+## Sources and consulted
+- ChatGPT
+- Wikipedia
+- W3Schools
+- GeeksforGeeks
+- Python Docs
+- Martin Hornych
+- Tomáš Križko
+- Ondra Kábrt
+
 
 ## Usage
 
